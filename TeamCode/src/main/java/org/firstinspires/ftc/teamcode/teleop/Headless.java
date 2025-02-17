@@ -220,11 +220,11 @@ public class Headless extends OpMode {
             if (clawOpen1) {
                 leftclaw.setPosition(0);
                 rightclaw.setPosition(1);
-                //holder.setPosition(0.6);
+
             } else {
                 leftclaw.setPosition(.2);
                 rightclaw.setPosition(.5);
-                //holder.setPosition(0);
+
             }
         }
         if (!gamepad1.a) {

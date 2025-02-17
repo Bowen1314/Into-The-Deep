@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -57,6 +58,7 @@ public final class MecanumDrive {
     public void setPoseEstimate(Pose2d pose) {
         this.pose = pose;
     }
+
 
     public static class Params {
         // IMU orientation
@@ -111,6 +113,9 @@ public final class MecanumDrive {
             new ProfileAccelConstraint(PARAMS.minProfileAccel, PARAMS.maxProfileAccel);
 
     public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
+    public final DcMotor leftLevel, rightLevel;
+    public final Servo claw, leftclaw, rightclaw, spin, rightslide, leftslide, holder, leftholder, rightholder;
+    public final DcMotor RD, LD;
 
     public final VoltageSensor voltageSensor;
 
@@ -245,6 +250,49 @@ public final class MecanumDrive {
         localizer = new ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
 
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
+
+
+        //-------------------------------------------------------
+        leftLevel = hardwareMap.get(DcMotor.class, "leftlevel");
+        rightLevel = hardwareMap.get(DcMotor.class, "rightlevel");
+        rightLevel.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftLevel.setTargetPosition(0);
+        rightLevel.setTargetPosition(0);
+        leftLevel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightLevel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        claw = hardwareMap.get(Servo.class, "claw");
+        leftclaw = hardwareMap.get(Servo.class, "leftclaw");
+        rightclaw = hardwareMap.get(Servo.class, "rightclaw");
+        spin = hardwareMap.get(Servo.class,"spin");
+
+        //slide
+        rightslide = hardwareMap.get(Servo.class, "rightslide");
+        leftslide = hardwareMap.get(Servo.class, "leftslide");
+
+        //holder system
+        holder = hardwareMap.get(Servo.class,"holder");
+        leftholder = hardwareMap.get(Servo.class,"leftholder");
+        rightholder = hardwareMap.get(Servo.class,"rightholder");
+
+        RD = hardwareMap.get(DcMotor.class,"RD");
+        LD = hardwareMap.get(DcMotor.class,"LD");
+        RD.setDirection(DcMotorSimple.Direction.REVERSE);
+        RD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RD.setTargetPosition(0);
+        LD.setTargetPosition(0);
+        RD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
     }
 
     public void setDrivePowers(PoseVelocity2d powers) {
