@@ -70,8 +70,8 @@ public final class Right extends LinearOpMode {
 
 
 
-        TrajectoryActionBuilder wait_sec = drive.actionBuilder(beginPose)
-                .waitSeconds(0.2);
+        TrajectoryActionBuilder wait_sec = drive.actionBuilder(currentPose)
+            .waitSeconds(0.2);
 
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
@@ -98,8 +98,14 @@ public final class Right extends LinearOpMode {
         TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
             .strafeTo(new Vector2d(37,-60));
 
+        TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
+            .strafeTo(new Vector2d(1,-32));
 
+        TrajectoryActionBuilder fourth_sample = drive.actionBuilder(humanPlayerPose)
+            .strafeTo(new Vector2d(4,-32));
 
+        TrajectoryActionBuilder fifth_sample = drive.actionBuilder(humanPlayerPose)
+            .strafeTo(new Vector2d(7,-32));
 
 
 
@@ -135,6 +141,29 @@ public final class Right extends LinearOpMode {
                 push.build()
             )
         );
+        back_arm.back();
+        holder.open();
+
+
+        Actions.runBlocking(
+            new SequentialAction(
+                human.build()
+            )
+        );
+
+        holder.close();
+        level.chamber_high();
+        back_arm.middle();
+
+        Actions.runBlocking(
+            new SequentialAction(
+                Second_Sample.build()
+            )
+        );
+
+        level.clip();
+        holder.open();
+
 
 
 

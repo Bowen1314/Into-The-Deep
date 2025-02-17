@@ -22,7 +22,7 @@ public class MeepMeepTesting {
         RoadRunnerBotEntity Blue = new DefaultBotBuilder(meepMeep)
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(14, -62, Math.toRadians(90.00)))
-                        .strafeTo(new Vector2d(0,-32))
+                        .strafeTo(new Vector2d(-5,-32))
                         .strafeTo(new Vector2d(30,-37))
                         .splineToConstantHeading(new Vector2d(35, -11), Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(48, -11), Math.toRadians(270.00))
@@ -33,6 +33,18 @@ public class MeepMeepTesting {
                         .splineToConstantHeading(new Vector2d(60.00, -11.00), Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(65.00, -11.00), Math.toRadians(270.00))
                         .splineToConstantHeading(new Vector2d(65.00, -55), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(37,-60), Math.toRadians(270.00))
+                        .strafeTo(new Vector2d(-2,-32))
+                        .strafeTo(new Vector2d(37,-60))
+                        .strafeTo(new Vector2d(1,-32))
+                        .strafeTo(new Vector2d(37,-60))
+                        .strafeTo(new Vector2d(4,-32))
+
+                        .strafeTo(new Vector2d(37,-60))
+                        .strafeTo(new Vector2d(7,-32))
+
+
+
 
 
 

@@ -15,6 +15,11 @@ public class back_arm_system {
         rightholder.setPosition(1);
     }
 
+    public void middle() {
+        leftholder.setPosition(0.5);
+        rightholder.setPosition(0.5);
+    }
+
     public void back() {
         leftholder.setPosition(1);
         rightholder.setPosition(0);
