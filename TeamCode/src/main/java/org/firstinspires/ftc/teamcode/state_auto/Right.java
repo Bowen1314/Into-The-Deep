@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystem.level_system;
 
 @Autonomous(name = "AAA - State Right", group = "A State RR")
 public final class Right extends LinearOpMode {
@@ -35,9 +36,14 @@ public final class Right extends LinearOpMode {
                 hardwareMap.get(Servo.class, "rightclaw")
         );
 
+        level_system level = new level_system(
+                hardwareMap.get(DcMotor.class, "leftLevel"),
+                hardwareMap.get(DcMotor.class, "rightLevel")
+        );
+
         TrajectoryActionBuilder preload = drive.actionBuilder(beginPose)
             .splineToSplineHeading(new Pose2d(-35,32, Math.toRadians(45)), Math.toRadians(-90));
-            front_claw.open();
+            level.chamber_high();
 
 
     }
