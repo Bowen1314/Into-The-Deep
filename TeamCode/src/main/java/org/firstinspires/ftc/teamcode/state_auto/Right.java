@@ -7,7 +7,9 @@ import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -46,7 +48,16 @@ public final class Right extends LinearOpMode {
             level.chamber_high();
 
 
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        preload.build()
+                )
+        );
     }
+
+
+
     public class ClawAction implements Action{
         Servo leftclaw;
         Servo rightclaw;
