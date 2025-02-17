@@ -116,7 +116,7 @@ public final class RR_Left extends LinearOpMode {
                         .strafeToSplineHeading(new Vector2d(5,35), Math.toRadians(90))
                         //.afterTime(0,new ArmAction(leftholder,rightholder,1,0))
                         //.afterTime(0,new SpinAction(spin,0))
-                        //.waitSeconds(2)
+                        .waitSeconds(2)
                         //.afterTime(0,new MotorAction(leftLevel,rightLevel,700))
 
 

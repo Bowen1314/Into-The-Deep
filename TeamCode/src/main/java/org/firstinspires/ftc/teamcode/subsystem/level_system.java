@@ -39,4 +39,17 @@ public class level_system {
         leftLevel.setPower(1);
         rightLevel.setPower(1);
     }
+
+    public void clip() {
+        leftLevel.setTargetPosition(300);
+        rightLevel.setTargetPosition(300);
+        leftLevel.setPower(1);
+        rightLevel.setPower(1);
+
+    }
+
+
+    public int CurrentPosition() {
+        return leftLevel.getCurrentPosition();
+    }
 }

@@ -7,8 +7,10 @@ import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -17,6 +19,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystem.level_system;
+import org.firstinspires.ftc.teamcode.subsystem.back_arm_system;
+import org.firstinspires.ftc.teamcode.subsystem.holder_system;
 
 @Autonomous(name = "AAA - State Right", group = "A State RR")
 public final class Right extends LinearOpMode {
@@ -25,10 +29,24 @@ public final class Right extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // 初始位姿
-        Pose2d beginPose = new Pose2d(14, 62,0);
+        Pose2d beginPose = new Pose2d(0, 0,0);
+
 
         // 初始化 MecanumDrive
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+
+        Pose2d currentPose = new Pose2d(drive.pose.position.x, drive.pose.position.y, drive.pose.heading.toDouble());
+
+
+        Pose2d initialPose = new Pose2d(14, -62, Math.toRadians(90));
+        Pose2d preloadSamplePose = new Pose2d(-5,-32, Math.toRadians(90));
+        Pose2d thirdPose = new Pose2d(65.00, -55, Math.toRadians(90));
+        Pose2d humanPlayerPose = new Pose2d(37,60, Math.toRadians(90));
+        Pose2d secondSamplePose = new Pose2d(-2,-32, Math.toRadians(90));
+        Pose2d thirdSamplePose = new Pose2d(1,-32, Math.toRadians(90));
+        Pose2d fourthSamplePose = new Pose2d(4,-32, Math.toRadians(90));
+        Pose2d fifthSamplePose = new Pose2d(7,-32, Math.toRadians(90));
+
 
 
 
@@ -42,122 +60,89 @@ public final class Right extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "leftLevel"),
                 hardwareMap.get(DcMotor.class, "rightLevel")
         );
+        back_arm_system back_arm = new back_arm_system(
+                hardwareMap.get(Servo.class, "leftholder"),
+                hardwareMap.get(Servo.class, "rightholder")
+        );
+        holder_system holder = new holder_system(
+                hardwareMap.get(Servo.class, "holder")
+        );
 
-        TrajectoryActionBuilder preload = drive.actionBuilder(beginPose)
-            .splineToSplineHeading(new Pose2d(-35,32, Math.toRadians(45)), Math.toRadians(-90));
-            level.chamber_high();
 
 
+        TrajectoryActionBuilder wait_sec = drive.actionBuilder(beginPose)
+                .waitSeconds(0.2);
+
+
+        TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
+            .strafeTo(new Vector2d(-5,-32));
+
+        TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
+            .strafeTo(new Vector2d(30,-37))
+            .splineToConstantHeading(new Vector2d(35, -11), Math.toRadians(90.00))
+            .splineToConstantHeading(new Vector2d(48, -11), Math.toRadians(270.00))
+            .splineToConstantHeading(new Vector2d(48.00, -55), Math.toRadians(90.00))
+            .splineToConstantHeading(new Vector2d(48.00, -11.00), Math.toRadians(90))
+            .splineToConstantHeading(new Vector2d(60.00, -11.00), Math.toRadians(270.00))
+            .splineToConstantHeading(new Vector2d(60.00, -55.00), Math.toRadians(90.00))
+            .splineToConstantHeading(new Vector2d(60.00, -11.00), Math.toRadians(90.00))
+            .splineToConstantHeading(new Vector2d(65.00, -11.00), Math.toRadians(270.00))
+            .splineToConstantHeading(new Vector2d(65.00, -55), Math.toRadians(270.00));
+
+        TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
+            .splineToConstantHeading(new Vector2d(37,-60), Math.toRadians(270.00));
+
+        TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
+            .strafeTo(new Vector2d(-2,-32));
+
+        TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
+            .strafeTo(new Vector2d(37,-60));
+
+
+
+
+
+
+
+
+
+
+
+
+
+        holder.close();
+        level.chamber_high();
+        back_arm.back();
 
         Actions.runBlocking(
-                new SequentialAction(
-                        preload.build()
-                )
-
+            new SequentialAction(
+                preload.build()
+            )
         );
+
+        level.clip();
+
+        Actions.runBlocking(
+            new SequentialAction(
+                wait_sec.build()
+            )
+        );
+        holder.open();
+        level.origin();
+
+        Actions.runBlocking(
+            new SequentialAction(
+                push.build()
+            )
+        );
+
+
+
+
+
+
+
+
+
     }
-
-
-
-    public class ClawAction implements Action{
-        Servo leftclaw;
-        Servo rightclaw;
-        double position_L;
-        double position_R;
-
-        public ClawAction(Servo s1,Servo s2,double p_L,double p_R){
-            this.leftclaw = s1;
-            this.rightclaw = s2;
-            this.position_L = p_L;
-            this.position_R = p_R;
-        }
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            leftclaw.setPosition(position_L);
-            rightclaw.setPosition(position_R);
-            return false;
-        }
-    }
-
-    public class MotorAction implements Action{
-        DcMotor leftLevel;
-        DcMotor rightLevel;
-        double position;
-
-        public MotorAction(DcMotor s1,DcMotor s2,double p){
-            this.leftLevel = s1;
-            this.rightLevel = s2;
-            this.position = p;
-        }
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            leftLevel.setTargetPosition((int) position);
-            rightLevel.setTargetPosition((int) position);
-            leftLevel.setPower(1.0);
-            rightLevel.setPower(1.0);
-            return false;
-        }
-    }
-
-
-    public class ArmAction implements Action{
-        Servo leftholder;
-        Servo rightholder;
-        double position_L;
-        double position_R;
-
-        public ArmAction(Servo s1,Servo s2,double p_L,double p_R){
-            this.leftholder = s1;
-            this.rightholder = s2;
-            this.position_L = p_L;
-            this.position_R = p_R;
-        }
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            leftholder.setPosition((int) position_L);
-            rightholder.setPosition((int) position_R);
-
-            //rightholder.setPosition(1);
-            //leftholder.setPosition(0);
-            return false;
-        }
-    }
-
-
-    public class HolderAction implements Action{
-        Servo holder;
-        double position;
-
-        public HolderAction(Servo s1,double p){
-            this.holder = s1;
-            this.position = p;
-        }
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            holder.setPosition((int) position);
-            return false;
-        }
-    }
-
-    public class SpinAction implements Action{
-        Servo spin;
-        double position;
-
-        public SpinAction(Servo s1,double p){
-            this.spin = s1;
-            this.position = p;
-        }
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            spin.setPosition((int) position);
-            return false;
-        }
-    }
-
-
 }
