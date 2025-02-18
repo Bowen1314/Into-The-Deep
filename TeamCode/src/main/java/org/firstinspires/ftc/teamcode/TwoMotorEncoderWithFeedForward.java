@@ -77,12 +77,6 @@ public class TwoMotorEncoderWithFeedForward extends LinearOpMode {
             rightLevel.setPower(powerRight);
 
             // 通过 telemetry 输出调试信息
-            telemetry.addData("目标位置", targetPosition);
-            telemetry.addData("左电机编码器", currentLeft);
-            telemetry.addData("右电机编码器", currentRight);
-            telemetry.addData("左电机功率", powerLeft);
-            telemetry.addData("右电机功率", powerRight);
-            telemetry.update();
         }
     }
 }
