@@ -67,8 +67,8 @@ public class state_servo extends OpMode {
         if (gamepad1.x) {
             //leftholder.setPosition(0);
             //rightholder.setPosition(1);
-            //angle.setPosition(1);
-            holder.setPosition(.4);
+            angle.setPosition(1);
+            //spin.setPosition(0);
 
 
         }
@@ -77,7 +77,8 @@ public class state_servo extends OpMode {
             //servo.setPosition(.5);
             //leftholder.setPosition(.5);
             //rightholder.setPosition(.5);
-            //angle.setPosition(.5);
+            angle.setPosition(.5);
+            //spin.setPosition(.5);
         }
 
         if (gamepad1.a) {
@@ -88,8 +89,8 @@ public class state_servo extends OpMode {
         if (gamepad1.b) {
             //leftholder.setPosition(1);
             //rightholder.setPosition(0);
-            //angle.setPosition(0);
-            holder.setPosition(1);
+            angle.setPosition(0);
+            //spin.setPosition(.7);
         }
 
     }

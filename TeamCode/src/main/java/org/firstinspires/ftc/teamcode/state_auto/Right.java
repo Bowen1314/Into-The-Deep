@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystem.level_system;
 import org.firstinspires.ftc.teamcode.subsystem.back_arm_system;
 import org.firstinspires.ftc.teamcode.subsystem.holder_system;
+import org.firstinspires.ftc.teamcode.subsystem.spin_system;
 
 @Autonomous(name = "AAA - State Right", group = "A State RR")
 public final class Right extends LinearOpMode {
@@ -66,6 +67,10 @@ public final class Right extends LinearOpMode {
         );
         holder_system holder = new holder_system(
                 hardwareMap.get(Servo.class, "holder")
+        );
+
+        spin_system spin = new spin_system(
+                hardwareMap.get(Servo.class, "spin")
         );
 
 
@@ -117,8 +122,9 @@ public final class Right extends LinearOpMode {
 
 
         holder.close();
+        spin.atfront();
         level.chamber_high();
-        back_arm.back();
+        back_arm.front();
 
         Actions.runBlocking(
             new SequentialAction(

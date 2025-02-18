@@ -19,6 +19,8 @@ public class Level_Test_2 extends LinearOpMode {
         leftLevel = hardwareMap.get(DcMotor.class, "leftlevel");
         leftLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftLevel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftLevel.setDirection(DcMotor.Direction.REVERSE);
+
         rightLevel = hardwareMap.get(DcMotor.class, "rightlevel");
         rightLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLevel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -47,8 +49,8 @@ public class Level_Test_2 extends LinearOpMode {
     private void moveMotorToPositionPID(int targetPosition) {
         // PID 参数（需要根据实际情况进行调试）
         double kP = 0.01;
-        double kI = 0.0001;
-        double kD = 0.001;
+        double kI = 0.000001;
+        double kD = 000.001;
 
         int threshold = 10; // 允许的误差范围
 

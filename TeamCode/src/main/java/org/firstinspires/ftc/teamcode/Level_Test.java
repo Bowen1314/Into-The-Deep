@@ -151,8 +151,8 @@ public class Level_Test extends OpMode {
 
         double levelpower = gamepad1.left_trigger - gamepad1.right_trigger;
 
-        leftLevel.setPower(levelpower);
-        rightLevel.setPower(levelpower);
+        leftLevel.setPower(levelpower-.1);
+        rightLevel.setPower(levelpower-.1);
 
         double Dpower = gamepad2.left_trigger - gamepad2.right_trigger;
 
