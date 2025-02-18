@@ -29,6 +29,8 @@ public class state_servo extends OpMode {
     private Servo leftholder;
     private Servo rightholder;
     private Servo spin;
+    private Servo angle;
+
 
 
     @Override
@@ -46,6 +48,7 @@ public class state_servo extends OpMode {
         leftholder = hardwareMap.get(Servo.class,"leftholder");
         rightholder = hardwareMap.get(Servo.class,"rightholder");
         spin = hardwareMap.get(Servo.class,"spin");
+        angle = hardwareMap.get(Servo.class,"angle");
         // Initialize motors
 
 
@@ -62,20 +65,31 @@ public class state_servo extends OpMode {
         // Clip motor powers to be in range [-1.0, 1.0]
 
         if (gamepad1.x) {
-            leftholder.setPosition(0);
-            rightclaw.setPosition(1);
+            //leftholder.setPosition(0);
+            //rightholder.setPosition(1);
+            //angle.setPosition(1);
+            holder.setPosition(.4);
+
 
         }
 
         if (gamepad1.y) {
             //servo.setPosition(.5);
-            leftholder.setPosition(.5);
-            rightclaw.setPosition(.5);
+            //leftholder.setPosition(.5);
+            //rightholder.setPosition(.5);
+            //angle.setPosition(.5);
+        }
+
+        if (gamepad1.a) {
+            leftholder.setPosition(0.2);
+            rightholder.setPosition(0.8);
         }
 
         if (gamepad1.b) {
-            leftholder.setPosition(0);
-            rightclaw.setPosition(1);
+            //leftholder.setPosition(1);
+            //rightholder.setPosition(0);
+            //angle.setPosition(0);
+            holder.setPosition(1);
         }
 
     }

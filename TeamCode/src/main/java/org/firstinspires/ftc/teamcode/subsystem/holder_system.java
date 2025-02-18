@@ -10,10 +10,10 @@ public class holder_system {
     }
 
     public void open() {
-        holder.setPosition(0);
+        holder.setPosition(1);
     }
 
     public void close() {
-        holder.setPosition(1);
+        holder.setPosition(.4);
     }
 }
