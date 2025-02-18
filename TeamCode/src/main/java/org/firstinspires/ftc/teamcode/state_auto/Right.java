@@ -29,7 +29,7 @@ public final class Right extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // 初始位姿
-        Pose2d beginPose = new Pose2d(0, 0,0);
+        Pose2d beginPose = new Pose2d(14, -62,Math.toRadians(90));
 
 
         // 初始化 MecanumDrive
@@ -57,8 +57,8 @@ public final class Right extends LinearOpMode {
         );
 
         level_system level = new level_system(
-                hardwareMap.get(DcMotor.class, "leftLevel"),
-                hardwareMap.get(DcMotor.class, "rightLevel")
+                hardwareMap.get(DcMotor.class, "leftlevel"),
+                hardwareMap.get(DcMotor.class, "rightlevel")
         );
         back_arm_system back_arm = new back_arm_system(
                 hardwareMap.get(Servo.class, "leftholder"),
@@ -79,15 +79,15 @@ public final class Right extends LinearOpMode {
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
             .strafeTo(new Vector2d(30,-37))
-            .splineToConstantHeading(new Vector2d(35, -11), Math.toRadians(90.00))
-            .splineToConstantHeading(new Vector2d(48, -11), Math.toRadians(270.00))
-            .splineToConstantHeading(new Vector2d(48.00, -55), Math.toRadians(90.00))
-            .splineToConstantHeading(new Vector2d(48.00, -11.00), Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(60.00, -11.00), Math.toRadians(270.00))
-            .splineToConstantHeading(new Vector2d(60.00, -55.00), Math.toRadians(90.00))
-            .splineToConstantHeading(new Vector2d(60.00, -11.00), Math.toRadians(90.00))
-            .splineToConstantHeading(new Vector2d(65.00, -11.00), Math.toRadians(270.00))
-            .splineToConstantHeading(new Vector2d(65.00, -55), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(35, -12), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(48, -12), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(48.00, -55), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(48.00, -12.00), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(50.00, -12.00), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(50.00, -55.00), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(50.00, -12.00), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(60.00, -12.00), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(60.00, -55), Math.toRadians(270.00));
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
             .splineToConstantHeading(new Vector2d(37,-60), Math.toRadians(270.00));
