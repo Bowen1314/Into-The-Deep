@@ -41,7 +41,7 @@ public final class Right extends LinearOpMode {
         Pose2d initialPose = new Pose2d(14, -62, Math.toRadians(90));
         Pose2d preloadSamplePose = new Pose2d(-5,-32, Math.toRadians(90));
         Pose2d thirdPose = new Pose2d(65.00, -55, Math.toRadians(90));
-        Pose2d humanPlayerPose = new Pose2d(37,60, Math.toRadians(90));
+        Pose2d humanPlayerPose = new Pose2d(37,-60, Math.toRadians(90));
         Pose2d secondSamplePose = new Pose2d(-2,-32, Math.toRadians(90));
         Pose2d thirdSamplePose = new Pose2d(1,-32, Math.toRadians(90));
         Pose2d fourthSamplePose = new Pose2d(4,-32, Math.toRadians(90));
@@ -75,37 +75,37 @@ public final class Right extends LinearOpMode {
 
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
-            .strafeTo(new Vector2d(-5,-32));
+            .strafeTo(new Vector2d(-8,-32));
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
-            .strafeTo(new Vector2d(30,-37))
+                .strafeTo(new Vector2d(30,-37))
                 .splineToConstantHeading(new Vector2d(35, -12), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(48, -12), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(48.00, -55), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(48.00, -12.00), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(50.00, -12.00), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(50.00, -55.00), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(50.00, -12.00), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(60.00, -12.00), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(60.00, -55), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(45, -11), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(45.00, -55), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(58.00, -10), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(58.00, -52.00), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(58.00, -9), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(65.00, -9), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(65.00, -52), Math.toRadians(270.00));
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
-            .splineToConstantHeading(new Vector2d(37,-60), Math.toRadians(270.00));
+            .splineToConstantHeading(new Vector2d(33,-64), Math.toRadians(270.00));
 
         TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
-            .strafeTo(new Vector2d(-2,-32));
+            .strafeTo(new Vector2d(-5,-32));
 
         TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
-            .strafeTo(new Vector2d(37,-60));
+            .strafeTo(new Vector2d(33,-64));
 
         TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
-            .strafeTo(new Vector2d(1,-32));
+            .strafeTo(new Vector2d(-2,-32));
 
         TrajectoryActionBuilder fourth_sample = drive.actionBuilder(humanPlayerPose)
-            .strafeTo(new Vector2d(4,-32));
+            .strafeTo(new Vector2d(1,-32));
 
         TrajectoryActionBuilder fifth_sample = drive.actionBuilder(humanPlayerPose)
-            .strafeTo(new Vector2d(7,-32));
+            .strafeTo(new Vector2d(4,-32));
 
 
 
@@ -163,6 +163,43 @@ public final class Right extends LinearOpMode {
 
         level.clip();
         holder.open();
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        tohuman.build()
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        Third_Sample.build()
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        tohuman.build()
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        fourth_sample.build()
+                )
+        );
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        tohuman.build()
+                )
+        );
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        fifth_sample.build()
+                )
+        );
+
+
+
+
 
 
 
