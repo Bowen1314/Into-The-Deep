@@ -145,11 +145,6 @@ public final class Right extends LinearOpMode {
         back_arm.clip(1700);
         level.origin(1900);
         holder.open(2100);
-
-
-
-
-
         Actions.runBlocking(
             new SequentialAction(
                 preload.build()
@@ -158,20 +153,13 @@ public final class Right extends LinearOpMode {
 
 
 
-
-        //level.clip();
-
-
-
-        holder.open();
-
-
         Actions.runBlocking(
             new SequentialAction(
                 push.build()
             )
         );
         back_arm.back();
+        spin.atback();
         holder.open();
 
 
@@ -183,8 +171,9 @@ public final class Right extends LinearOpMode {
 
         holder.close();
 
-        level.chamber_high();
-        back_arm.middle();
+        level.chamber_high(500);
+        back_arm.middle(500);
+        spin.atfront(500);
 
         Actions.runBlocking(
             new SequentialAction(
@@ -192,49 +181,21 @@ public final class Right extends LinearOpMode {
             )
         );
 
-
-        //start
-
-
-
-
-
+        back_arm.middle();
+        level.chamber_high();
+        back_arm.clip(1900);
+        level.origin(2100);
+        holder.open(2300);
 
 
-
-        back_arm.clip();
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec.build()
-                )
-        );
-        //level.clip();
-
-        level.origin();
-        back_arm.clip();
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec_2.build()
-                )
-        );
-
-        holder.open();
-
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec.build()
-                )
-        );
-        level.origin();
-
-        //666
 
         Actions.runBlocking(
                 new SequentialAction(
                         tohuman.build()
                 )
         );
+
+
         Actions.runBlocking(
                 new SequentialAction(
                         Third_Sample.build()
