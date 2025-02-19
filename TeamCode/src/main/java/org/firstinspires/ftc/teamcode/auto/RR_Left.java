@@ -42,7 +42,7 @@ public final class RR_Left extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // 初始位姿
-        Pose2d beginPose = new Pose2d(14, 62,0);
+        Pose2d beginPose = new Pose2d(14, -62,Math.toRadians(90));
 
         // 初始化 MecanumDrive
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
@@ -88,19 +88,10 @@ public final class RR_Left extends LinearOpMode {
         LD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        claw.setPosition(1);
-        rightholder.setPosition(0);
-        leftholder.setPosition(1);
-        leftclaw.setPosition(0.2);
-        rightclaw.setPosition(.5);
-        holder.setPosition(0);
-        spin.setPosition(1);
-        RD.setTargetPosition(0);
-        LD.setTargetPosition(0);
-        RD.setPower(1);
-        LD.setPower(1);
-        leftslide.setPosition(0);
-        rightsilde.setPosition(1);
+        leftholder.setPosition(0);
+        rightholder.setPosition(1);
+        holder.setPosition(.4);
+        spin.setPosition(.7);
 
 
         // 等待比赛开始
@@ -110,61 +101,35 @@ public final class RR_Left extends LinearOpMode {
         // 执行动作序列：前进到X=32，然后执行升降电机动作，再回到X=0
         Actions.runBlocking(
                 drive.actionBuilder(beginPose)
-                        //.afterTime(0,new ArmAction(leftholder,rightholder,1,0))
-                        //.afterTime(0,new MotorAction(leftLevel,rightLevel,500))
-                        .afterTime(0,new ArmAction(leftholder,rightholder,1,0))
-                        .strafeToSplineHeading(new Vector2d(5,35), Math.toRadians(90))
-                        //.afterTime(0,new ArmAction(leftholder,rightholder,1,0))
-                        //.afterTime(0,new SpinAction(spin,0))
-                        .waitSeconds(2)
-                        //.afterTime(0,new MotorAction(leftLevel,rightLevel,700))
+                        //gp chamber
+                        .afterTime(.1,new ArmAction(leftholder,rightholder,.5,.5))
+                        .afterTime(0,new MotorAction(leftLevel,rightLevel,-400))
+                        //.strafeTo(new Vector2d(-6,-28))
+                        .afterTime(.5,new MotorAction(leftLevel,rightLevel,-350))
+                        .afterTime(.1, new ArmAction(leftholder,rightholder,0.25,0.75))
+                        .afterTime(.8,new HolderAction(holder,1))
+                        .waitSeconds(5)
+
+                        //startpush
+                        /*
+                        .strafeTo(new Vector2d(30,-37))
+                        .splineToConstantHeading(new Vector2d(35, -12), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(45, -11), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(45.00, -55), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(58.00, -10), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(58.00, -52.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(58.00, -9), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(65.00, -9), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(65.00, -52), Math.toRadians(270.00))
+
+
+                         */
 
 
 
-                        //.waitSeconds(6)
-                        .lineToY(41)
-                        //.afterTime(0,new MotorAction(leftLevel,rightLevel,0))
-                        .strafeToSplineHeading(new Vector2d(41, 40), Math.toRadians(90))
-                        //.splineTo(new Vector2d(-37, 20), Math.toRadians(-90))
-                        .strafeToSplineHeading(new Vector2d(41, 12), Math.toRadians(90))
-                        .strafeToSplineHeading(new Vector2d(45, 12), Math.toRadians(90))                        //.lineToX(-48)
-
-                        .strafeToSplineHeading(new Vector2d(45, 55), Math.toRadians(90))
-                        .strafeToSplineHeading(new Vector2d(45, 15), Math.toRadians(90))
-                        .strafeToSplineHeading(new Vector2d(55, 15), Math.toRadians(90))
-                        .strafeToSplineHeading(new Vector2d(55, 55), Math.toRadians(90))
-                        .strafeToSplineHeading(new Vector2d(55, 15), Math.toRadians(90))
-                        .strafeToSplineHeading(new Vector2d(62, 15), Math.toRadians(90))
-                        .strafeToSplineHeading(new Vector2d(62, 55), Math.toRadians(90))
-                        .strafeToSplineHeading(new Vector2d(62, 40), Math.toRadians(90))
 
 
-
-                        //.lineToX(-48)
-
-                        //.lineToX(-48)
-
-                        //.lineToX(-48)
-
-                        //.lineToX(-48)
-
-                        //.lineToX(-48)
-                        //.lineToY(62)
-
-
-                        .strafeToSplineHeading(new Vector2d(24, 0), Math.toRadians(179))
-
-
-
-                        //.stopAndAdd(new MotorAction(leftLevel,rightLevel,1000))
-                        //.afterTime(0,new MotorAction(leftLevel,rightLevel,3500))
-                        //.lineToX(50)
-
-                        //.lineToX(0)
-                        //.lineToX(5)
-                        //.lineToX(10)
-                        //.lineToX(0)
-                        //.afterTime(0,new MotorAction(leftLevel,rightLevel,0))
                         .build()
         );
     }
@@ -226,11 +191,8 @@ public final class RR_Left extends LinearOpMode {
 
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            leftholder.setPosition((int) position_L);
-            rightholder.setPosition((int) position_R);
-
-            //rightholder.setPosition(1);
-            //leftholder.setPosition(0);
+            leftholder.setPosition(position_L);
+            rightholder.setPosition(position_R);
             return false;
         }
     }
@@ -263,7 +225,7 @@ public final class RR_Left extends LinearOpMode {
 
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            spin.setPosition((int) position);
+            spin.setPosition(position);
             return false;
         }
     }

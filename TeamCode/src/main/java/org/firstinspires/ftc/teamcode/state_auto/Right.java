@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -61,6 +62,19 @@ public final class Right extends LinearOpMode {
                 hardwareMap.get(Servo.class, "leftholder"),
                 hardwareMap.get(Servo.class, "rightholder")
         );
+        Action backArmFrontAction = new Action() {
+            private boolean executed = false;
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                if (!executed) {
+                    back_arm.middle();
+                    executed = true;
+                }
+                // Return true immediately since the command is triggered.
+                return true;
+            }
+        };
         holder_system holder = new holder_system(
                 hardwareMap.get(Servo.class, "holder")
         );
@@ -86,6 +100,7 @@ public final class Right extends LinearOpMode {
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
                 .strafeTo(new Vector2d(30,-37))
                 .splineToConstantHeading(new Vector2d(35, -12), Math.toRadians(90.00))
+
                 .splineToConstantHeading(new Vector2d(45, -11), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(45.00, -55), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
@@ -115,6 +130,7 @@ public final class Right extends LinearOpMode {
 
 
 
+
         back_arm.front();
         spin.atfront();
         holder.close();
@@ -128,6 +144,7 @@ public final class Right extends LinearOpMode {
 
 
 
+
         Actions.runBlocking(
             new SequentialAction(
                 preload.build()
@@ -135,32 +152,15 @@ public final class Right extends LinearOpMode {
         );
 
 
-
-
         back_arm.clip();
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec.build()
-                )
-        );
+
         //level.clip();
 
         level.origin();
         back_arm.clip();
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec_2.build()
-                )
-        );
 
         holder.open();
 
-
-        Actions.runBlocking(
-            new SequentialAction(
-                wait_sec.build()
-            )
-        );
         level.origin();
 
         Actions.runBlocking(
@@ -177,18 +177,9 @@ public final class Right extends LinearOpMode {
                 human.build()
             )
         );
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec_5.build()
-                )
-        );
 
         holder.close();
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec_2.build()
-                )
-        );
+
         level.chamber_high();
         back_arm.middle();
 
@@ -199,7 +190,7 @@ public final class Right extends LinearOpMode {
         );
 
 
-        //999
+        //start
 
 
 
@@ -272,16 +263,6 @@ public final class Right extends LinearOpMode {
         telemetry.addData("LevelL",level.getCurrentPositionL());
         telemetry.addData("LevelR",level.getCurrentPositionR());
         telemetry.update();
-
-
-
-
-
-
-
-
-
-
 
     }
 

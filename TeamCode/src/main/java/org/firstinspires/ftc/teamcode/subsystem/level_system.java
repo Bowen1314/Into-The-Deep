@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class level_system {
     public DcMotor leftLevel, rightLevel;
-
 
     public level_system(DcMotor leftLevel, DcMotor rightLevel) {
         this.leftLevel = leftLevel;
@@ -14,7 +14,6 @@ public class level_system {
         leftLevel.setDirection(DcMotor.Direction.REVERSE);
         leftLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
 
         leftLevel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightLevel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -31,11 +30,26 @@ public class level_system {
         rightLevel.setPower(1);
     }
 
+    // Original chamber_high method without delay.
     public void chamber_high() {
         leftLevel.setTargetPosition(400);
         rightLevel.setTargetPosition(-400);
         leftLevel.setPower(1);
         rightLevel.setPower(1);
+    }
+
+    // Non-blocking delayed version using Timer and TimerTask.
+    public void chamber_high(final long delayMillis) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // This runs in a separate thread after delayMillis milliseconds.
+                chamber_high();
+                // Cancel the timer once the task is executed.
+                timer.cancel();
+            }
+        }, delayMillis);
     }
 
     public void basket_high() {
@@ -55,7 +69,8 @@ public class level_system {
     public int getCurrentPositionL() {
         return leftLevel.getCurrentPosition();
     }
+
     public int getCurrentPositionR() {
-        return leftLevel.getCurrentPosition();
+        return rightLevel.getCurrentPosition();
     }
 }
