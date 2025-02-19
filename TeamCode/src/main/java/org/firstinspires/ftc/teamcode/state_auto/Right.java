@@ -68,61 +68,57 @@ public final class Right extends LinearOpMode {
                 hardwareMap.get(Servo.class, "spin")
         );
 
-        back_arm.front();
-        spin.atfront();
-        holder.close();
-
-
-
-
-        waitForStart();
-
-
-
-
         TrajectoryActionBuilder wait_sec = drive.actionBuilder(currentPose)
-            .waitSeconds(.2);
+                .waitSeconds(1);
 
         TrajectoryActionBuilder wait_sec_1 = drive.actionBuilder(currentPose)
                 .waitSeconds(.1);
 
+        TrajectoryActionBuilder wait_sec_2 = drive.actionBuilder(currentPose)
+                .waitSeconds(.2);
+
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
-            .strafeTo(new Vector2d(-8,-30));
+                .strafeTo(new Vector2d(-6,-28));
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
-            .strafeTo(new Vector2d(30,-37))
-            .splineToConstantHeading(new Vector2d(35, -12), Math.toRadians(90.00))
-            .splineToConstantHeading(new Vector2d(45, -11), Math.toRadians(270.00))
-            .splineToConstantHeading(new Vector2d(45.00, -55), Math.toRadians(90.00))
-            .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(58.00, -10), Math.toRadians(270.00))
-            .splineToConstantHeading(new Vector2d(58.00, -52.00), Math.toRadians(90.00))
-            .splineToConstantHeading(new Vector2d(58.00, -9), Math.toRadians(90.00))
-            .splineToConstantHeading(new Vector2d(65.00, -9), Math.toRadians(270.00))
-            .splineToConstantHeading(new Vector2d(65.00, -52), Math.toRadians(270.00));
+                .strafeTo(new Vector2d(30,-37))
+                .splineToConstantHeading(new Vector2d(35, -12), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45, -11), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(45.00, -55), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(58.00, -10), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(58.00, -52.00), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(58.00, -9), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(65.00, -9), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(65.00, -52), Math.toRadians(270.00));
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
-            .splineToConstantHeading(new Vector2d(33,-64), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(33,-65), Math.toRadians(270.00));
 
         TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
-            .strafeTo(new Vector2d(-5,-30));
+                .strafeTo(new Vector2d(-5,-30));
 
         TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
-            .strafeTo(new Vector2d(33,-64));
+                .strafeTo(new Vector2d(33,-65));
 
         TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
-            .strafeTo(new Vector2d(-2,-30));
+                .strafeTo(new Vector2d(-2,-30));
 
         TrajectoryActionBuilder fourth_sample = drive.actionBuilder(humanPlayerPose)
-            .strafeTo(new Vector2d(1,-30));
+                .strafeTo(new Vector2d(1,-30));
 
         TrajectoryActionBuilder fifth_sample = drive.actionBuilder(humanPlayerPose)
-            .strafeTo(new Vector2d(4,-30));
+                .strafeTo(new Vector2d(4,-30));
 
 
 
-        back_arm.middle();
+        back_arm.front();
+        spin.atfront();
+        holder.close();
+
+        waitForStart();
+
 
 
 
@@ -131,22 +127,30 @@ public final class Right extends LinearOpMode {
                 preload.build()
             )
         );
+
+        back_arm.middle();
+
         level.chamber_high();
 
-        Actions.runBlocking(
-            new SequentialAction(
-                wait_sec.build()
-            )
-        );
 
-        level.clip();
+        back_arm.clip();
         Actions.runBlocking(
                 new SequentialAction(
-                        wait_sec_1.build()
+                        wait_sec.build()
                 )
         );
-        holder.open();
+        //level.clip();
+
         level.origin();
+        back_arm.clip();
+        Actions.runBlocking(
+                new SequentialAction(
+                        wait_sec_2.build()
+                )
+        );
+
+        holder.open();
+
 
         Actions.runBlocking(
             new SequentialAction(

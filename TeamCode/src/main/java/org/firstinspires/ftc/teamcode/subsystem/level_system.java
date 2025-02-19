@@ -32,8 +32,8 @@ public class level_system {
     }
 
     public void chamber_high() {
-        leftLevel.setTargetPosition(1000);
-        rightLevel.setTargetPosition(-1000);
+        leftLevel.setTargetPosition(400);
+        rightLevel.setTargetPosition(-400);
         leftLevel.setPower(1);
         rightLevel.setPower(1);
     }
@@ -46,8 +46,8 @@ public class level_system {
     }
 
     public void clip() {
-        leftLevel.setTargetPosition(900);
-        rightLevel.setTargetPosition(-900);
+        leftLevel.setTargetPosition(350);
+        rightLevel.setTargetPosition(-350);
         leftLevel.setPower(1);
         rightLevel.setPower(1);
     }

@@ -10,10 +10,10 @@ public class spin_system {
     }
 
     public void atfront() {
-        spin.setPosition(0);
+        spin.setPosition(.7);
     }
 
     public void atback() {
-        spin.setPosition(.7);
+        spin.setPosition(0);
     }
 }
