@@ -6,11 +6,6 @@ import com.qualcomm.robotcore.util.Range;
 public class level_system {
     public DcMotor leftLevel, rightLevel;
 
-    int targetPosition = 0;
-
-    private final double FEED_FORWARD = 0.1;
-    private final double kP = 0.005;
-    private final int THRESHOLD = 10;
 
     public level_system(DcMotor leftLevel, DcMotor rightLevel) {
         this.leftLevel = leftLevel;
@@ -19,58 +14,48 @@ public class level_system {
         leftLevel.setDirection(DcMotor.Direction.REVERSE);
         leftLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        // 使用 RUN_USING_ENCODER 模式，以便我们用自定义算法更新电机功率
+
+
         leftLevel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightLevel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void update() {
-        int currentLeft = leftLevel.getCurrentPosition();
-        int currentRight = rightLevel.getCurrentPosition();
-
-        int errorLeft = targetPosition - currentLeft;
-        int errorRight = targetPosition - currentRight;
-
-        double powerLeft, powerRight;
-
-        // 当误差较大时，根据比例控制计算功率，并加上前馈功率
-        if (Math.abs(errorLeft) > THRESHOLD) {
-            powerLeft = kP * errorLeft + FEED_FORWARD;
-        } else {
-            powerLeft = FEED_FORWARD;
-        }
-
-        if (Math.abs(errorRight) > THRESHOLD) {
-            powerRight = kP * errorRight + FEED_FORWARD;
-        } else {
-            powerRight = FEED_FORWARD;
-        }
-
-        // 限制功率范围在 -1.0 到 1.0 之间
-        powerLeft = Range.clip(powerLeft, -1.0, 1.0);
-        powerRight = Range.clip(powerRight, -1.0, 1.0);
-
-        leftLevel.setPower(powerLeft);
-        rightLevel.setPower(powerRight);
+        leftLevel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightLevel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void origin() {
-        targetPosition = 0;
+        leftLevel.setTargetPosition(0);
+        rightLevel.setTargetPosition(0);
+        leftLevel.setPower(1);
+        rightLevel.setPower(1);
     }
 
     public void chamber_high() {
-        targetPosition = 350;
+        leftLevel.setTargetPosition(1000);
+        rightLevel.setTargetPosition(-1000);
+        leftLevel.setPower(1);
+        rightLevel.setPower(1);
     }
 
     public void basket_high() {
-        targetPosition = 4000;
+        leftLevel.setTargetPosition(2000);
+        rightLevel.setTargetPosition(-2000);
+        leftLevel.setPower(1);
+        rightLevel.setPower(1);
     }
 
     public void clip() {
-        targetPosition = 300;
+        leftLevel.setTargetPosition(900);
+        rightLevel.setTargetPosition(-900);
+        leftLevel.setPower(1);
+        rightLevel.setPower(1);
     }
 
-    public int getCurrentPosition() {
+    public int getCurrentPositionL() {
+        return leftLevel.getCurrentPosition();
+    }
+    public int getCurrentPositionR() {
         return leftLevel.getCurrentPosition();
     }
 }
