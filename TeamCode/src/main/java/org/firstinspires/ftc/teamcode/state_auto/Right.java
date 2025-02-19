@@ -135,11 +135,16 @@ public final class Right extends LinearOpMode {
         spin.atfront();
         holder.close();
 
+
+
         waitForStart();
 
         back_arm.middle();
 
         level.chamber_high();
+        back_arm.clip(1700);
+        level.origin(1900);
+        holder.open(2100);
 
 
 
@@ -152,16 +157,14 @@ public final class Right extends LinearOpMode {
         );
 
 
-        back_arm.clip();
+
 
         //level.clip();
 
-        level.origin();
-        back_arm.clip();
+
 
         holder.open();
 
-        level.origin();
 
         Actions.runBlocking(
             new SequentialAction(

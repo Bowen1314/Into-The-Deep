@@ -23,6 +23,7 @@ public class level_system {
         rightLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+    // Immediate method for setting the origin position.
     public void origin() {
         leftLevel.setTargetPosition(0);
         rightLevel.setTargetPosition(0);
@@ -30,7 +31,19 @@ public class level_system {
         rightLevel.setPower(1);
     }
 
-    // Original chamber_high method without delay.
+    // Non-blocking delayed version of origin.
+    public void origin(final long delayMillis) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                origin();
+                timer.cancel();
+            }
+        }, delayMillis);
+    }
+
+    // Immediate method for chamber_high position.
     public void chamber_high() {
         leftLevel.setTargetPosition(400);
         rightLevel.setTargetPosition(-400);
@@ -38,20 +51,19 @@ public class level_system {
         rightLevel.setPower(1);
     }
 
-    // Non-blocking delayed version using Timer and TimerTask.
+    // Non-blocking delayed version of chamber_high.
     public void chamber_high(final long delayMillis) {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // This runs in a separate thread after delayMillis milliseconds.
                 chamber_high();
-                // Cancel the timer once the task is executed.
                 timer.cancel();
             }
         }, delayMillis);
     }
 
+    // Immediate method for basket_high position.
     public void basket_high() {
         leftLevel.setTargetPosition(2000);
         rightLevel.setTargetPosition(-2000);
@@ -59,6 +71,19 @@ public class level_system {
         rightLevel.setPower(1);
     }
 
+    // Non-blocking delayed version of basket_high.
+    public void basket_high(final long delayMillis) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                basket_high();
+                timer.cancel();
+            }
+        }, delayMillis);
+    }
+
+    // Immediate method for clip position.
     public void clip() {
         leftLevel.setTargetPosition(350);
         rightLevel.setTargetPosition(-350);
@@ -66,6 +91,19 @@ public class level_system {
         rightLevel.setPower(1);
     }
 
+    // Non-blocking delayed version of clip.
+    public void clip(final long delayMillis) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                clip();
+                timer.cancel();
+            }
+        }, delayMillis);
+    }
+
+    // Methods to get the current encoder positions.
     public int getCurrentPositionL() {
         return leftLevel.getCurrentPosition();
     }
