@@ -76,7 +76,7 @@ public final class Right extends LinearOpMode {
 
 
         TrajectoryActionBuilder wait_sec = drive.actionBuilder(currentPose)
-            .waitSeconds(0.2);
+            .waitSeconds(1);
 
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
@@ -123,8 +123,9 @@ public final class Right extends LinearOpMode {
 
         holder.close();
         spin.atfront();
-        level.chamber_high();
         back_arm.front();
+        level.chamber_high();
+
 
         Actions.runBlocking(
             new SequentialAction(
@@ -132,7 +133,15 @@ public final class Right extends LinearOpMode {
             )
         );
 
+        Actions.runBlocking(
+            new SequentialAction(
+                wait_sec.build()
+            )
+        );
+
         level.clip();
+        holder.open();
+        level.origin();
 
         Actions.runBlocking(
             new SequentialAction(

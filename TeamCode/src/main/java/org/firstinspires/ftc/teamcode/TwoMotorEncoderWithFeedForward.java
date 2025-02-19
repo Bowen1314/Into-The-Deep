@@ -38,7 +38,7 @@ public class TwoMotorEncoderWithFeedForward extends LinearOpMode {
         while (opModeIsActive()) {
             // 根据游戏手柄输入设置目标位置
             if (gamepad1.y) {
-                targetPosition = 500;
+                targetPosition = 350;
             }
             if (gamepad1.x) {
                 targetPosition = 0;

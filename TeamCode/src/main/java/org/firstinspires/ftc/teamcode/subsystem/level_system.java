@@ -59,7 +59,7 @@ public class level_system {
     }
 
     public void chamber_high() {
-        targetPosition = 500;
+        targetPosition = 350;
     }
 
     public void basket_high() {
