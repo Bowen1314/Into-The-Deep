@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.state_auto;
 
 import androidx.annotation.NonNull;
 
+import org.firstinspires.ftc.teamcode.auto.RR_Left;
 import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -71,14 +72,15 @@ public final class Right extends LinearOpMode {
         TrajectoryActionBuilder wait_sec = drive.actionBuilder(currentPose)
                 .waitSeconds(1);
 
-        TrajectoryActionBuilder wait_sec_1 = drive.actionBuilder(currentPose)
-                .waitSeconds(.1);
+        TrajectoryActionBuilder wait_sec_5 = drive.actionBuilder(currentPose)
+                .waitSeconds(.5);
 
         TrajectoryActionBuilder wait_sec_2 = drive.actionBuilder(currentPose)
                 .waitSeconds(.2);
 
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
+                //.afterTime(0,new RR_Left.ArmAction(leftholder,rightholder,1,0))
                 .strafeTo(new Vector2d(-6,-28));
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
@@ -94,13 +96,13 @@ public final class Right extends LinearOpMode {
                 .splineToConstantHeading(new Vector2d(65.00, -52), Math.toRadians(270.00));
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
-                .splineToConstantHeading(new Vector2d(33,-65), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(33,-66), Math.toRadians(270.00));
 
         TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
                 .strafeTo(new Vector2d(-5,-30));
 
         TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
-                .strafeTo(new Vector2d(33,-65));
+                .strafeTo(new Vector2d(33,-66));
 
         TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
                 .strafeTo(new Vector2d(-2,-30));
@@ -119,6 +121,10 @@ public final class Right extends LinearOpMode {
 
         waitForStart();
 
+        back_arm.middle();
+
+        level.chamber_high();
+
 
 
 
@@ -128,9 +134,7 @@ public final class Right extends LinearOpMode {
             )
         );
 
-        back_arm.middle();
 
-        level.chamber_high();
 
 
         back_arm.clip();
@@ -157,7 +161,6 @@ public final class Right extends LinearOpMode {
                 wait_sec.build()
             )
         );
-        holder.open();
         level.origin();
 
         Actions.runBlocking(
@@ -174,8 +177,18 @@ public final class Right extends LinearOpMode {
                 human.build()
             )
         );
+        Actions.runBlocking(
+                new SequentialAction(
+                        wait_sec_5.build()
+                )
+        );
 
         holder.close();
+        Actions.runBlocking(
+                new SequentialAction(
+                        wait_sec_2.build()
+                )
+        );
         level.chamber_high();
         back_arm.middle();
 
@@ -185,8 +198,43 @@ public final class Right extends LinearOpMode {
             )
         );
 
-        level.clip();
+
+        //999
+
+
+
+
+
+
+
+
+        back_arm.clip();
+        Actions.runBlocking(
+                new SequentialAction(
+                        wait_sec.build()
+                )
+        );
+        //level.clip();
+
+        level.origin();
+        back_arm.clip();
+        Actions.runBlocking(
+                new SequentialAction(
+                        wait_sec_2.build()
+                )
+        );
+
         holder.open();
+
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        wait_sec.build()
+                )
+        );
+        level.origin();
+
+        //666
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -235,5 +283,29 @@ public final class Right extends LinearOpMode {
 
 
 
+    }
+
+    public class ArmAction implements Action{
+        Servo leftholder;
+        Servo rightholder;
+        double position_L;
+        double position_R;
+
+        public ArmAction(Servo s1,Servo s2,double p_L,double p_R){
+            this.leftholder = s1;
+            this.rightholder = s2;
+            this.position_L = p_L;
+            this.position_R = p_R;
+        }
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            leftholder.setPosition((int) position_L);
+            rightholder.setPosition((int) position_R);
+
+            //rightholder.setPosition(1);
+            //leftholder.setPosition(0);
+            return false;
+        }
     }
 }
