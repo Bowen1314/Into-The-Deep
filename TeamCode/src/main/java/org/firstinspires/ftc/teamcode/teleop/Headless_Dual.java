@@ -18,6 +18,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.subsystem.angle_system;
+import org.firstinspires.ftc.teamcode.subsystem.back_arm_system;
+import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
+import org.firstinspires.ftc.teamcode.subsystem.holder_system;
+import org.firstinspires.ftc.teamcode.subsystem.level_system;
+import org.firstinspires.ftc.teamcode.subsystem.spin_system;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -41,6 +48,7 @@ public class Headless_Dual extends OpMode {
     private Servo leftholder;
     private Servo rightholder;
     private Servo spin;
+    private Servo angle;
     private IMU imu;
     private DcMotor leftLevel;
     private DcMotor rightLevel;
@@ -109,6 +117,7 @@ public class Headless_Dual extends OpMode {
         leftholder = hardwareMap.get(Servo.class,"leftholder");
         rightholder = hardwareMap.get(Servo.class,"rightholder");
         spin = hardwareMap.get(Servo.class,"spin");
+        angle = hardwareMap.get(Servo.class,"angle");
 
         //level system
         leftLevel = hardwareMap.get(DcMotor.class, "leftlevel");
@@ -137,6 +146,31 @@ public class Headless_Dual extends OpMode {
         imu.initialize(parameters);
 
 
+        front_claw_system front_claw = new front_claw_system(
+                hardwareMap.get(Servo.class, "leftclaw"),
+                hardwareMap.get(Servo.class, "rightclaw")
+        );
+
+        level_system level = new level_system(
+                hardwareMap.get(DcMotor.class, "leftlevel"),
+                hardwareMap.get(DcMotor.class, "rightlevel")
+        );
+        back_arm_system back_arm = new back_arm_system(
+                hardwareMap.get(Servo.class, "leftholder"),
+                hardwareMap.get(Servo.class, "rightholder")
+        );
+        holder_system holder = new holder_system(
+                hardwareMap.get(Servo.class, "holder")
+        );
+        angle_system angle = new angle_system(
+                hardwareMap.get(Servo.class, "angle")
+        );
+
+        spin_system spin = new spin_system(
+                hardwareMap.get(Servo.class, "spin")
+        );
+
+
 
 
 
@@ -147,17 +181,9 @@ public class Headless_Dual extends OpMode {
 
         if (gamepad1.right_stick_button){
 
-            rightholder.setPosition(0);
-            leftholder.setPosition(1);
-            leftclaw.setPosition(0);
             rightclaw.setPosition(1);
             holder.setPosition(0.6);
             spin.setPosition(1);
-            //leftLevel.setTargetPosition(150);
-            //rightLevel.setTargetPosition(150);
-            //leftLevel.setPower(1.0);
-            //rightLevel.setPower(1.0);
-
         }
         //start of starting position & setup
 

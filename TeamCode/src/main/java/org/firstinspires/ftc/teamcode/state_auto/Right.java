@@ -63,19 +63,6 @@ public final class Right extends LinearOpMode {
                 hardwareMap.get(Servo.class, "leftholder"),
                 hardwareMap.get(Servo.class, "rightholder")
         );
-        Action backArmFrontAction = new Action() {
-            private boolean executed = false;
-
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                if (!executed) {
-                    back_arm.middle();
-                    executed = true;
-                }
-                // Return true immediately since the command is triggered.
-                return true;
-            }
-        };
         holder_system holder = new holder_system(
                 hardwareMap.get(Servo.class, "holder")
         );
