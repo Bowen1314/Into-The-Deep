@@ -20,7 +20,7 @@ public class angle_system {
         angle.setPosition(1);
     }
     public void down() {
-        angle.setPosition(0);
+        angle.setPosition(0.2);
     }
 
     // Non-blocking delayed open method

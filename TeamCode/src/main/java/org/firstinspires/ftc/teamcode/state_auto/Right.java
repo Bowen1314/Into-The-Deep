@@ -137,7 +137,7 @@ public final class Right extends LinearOpMode {
         back_arm.front();
         spin.atfront();
         holder.close();
-        angle.middle();
+        angle.down();
 
 
 
@@ -155,8 +155,6 @@ public final class Right extends LinearOpMode {
             )
         );
 
-
-
         Actions.runBlocking(
             new SequentialAction(
                 push.build()
@@ -171,6 +169,11 @@ public final class Right extends LinearOpMode {
             new SequentialAction(
                 human.build()
             )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                    wait_sec_2.build()
+                )
         );
 
         holder.close();
