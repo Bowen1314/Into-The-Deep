@@ -181,18 +181,20 @@ public final class Right extends LinearOpMode {
         level.chamber_high(500);
         back_arm.middle(500);
         spin.atfront(500);
+        back_arm.clip(1900);
+        level.origin(2100);
+        holder.open(2300);
 
         Actions.runBlocking(
             new SequentialAction(
                 Second_Sample.build()
             )
         );
+        back_arm.back();
+        spin.atback();
+        holder.open();
 
-        back_arm.middle();
-        level.chamber_high();
-        back_arm.clip(1900);
-        level.origin(2100);
-        holder.open(2300);
+
 
 
 
@@ -201,6 +203,20 @@ public final class Right extends LinearOpMode {
                         tohuman.build()
                 )
         );
+        Actions.runBlocking(
+                new SequentialAction(
+                        wait_sec_2.build()
+                )
+        );
+
+        holder.close();
+        level.chamber_high(500);
+        back_arm.middle(500);
+        spin.atfront(500);
+        back_arm.clip(1900);
+        level.origin(2100);
+        holder.open(2300);
+
 
 
         Actions.runBlocking(
@@ -208,6 +224,8 @@ public final class Right extends LinearOpMode {
                         Third_Sample.build()
                 )
         );
+
+
         Actions.runBlocking(
                 new SequentialAction(
                         tohuman.build()
