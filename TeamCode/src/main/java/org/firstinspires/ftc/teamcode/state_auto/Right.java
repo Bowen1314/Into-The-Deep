@@ -102,22 +102,22 @@ public final class Right extends LinearOpMode {
                 .splineToConstantHeading(new Vector2d(35, -12), Math.toRadians(90.00))
 
                 .splineToConstantHeading(new Vector2d(45, -11), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(45.00, -55), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(58.00, -10), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(58.00, -52.00), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(58.00, -9), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(65.00, -9), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(65.00, -52), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(58.00, -58), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(58.00, -6), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(64.00, -6), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(64.00, -58), Math.toRadians(270.00));
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
-                .splineToConstantHeading(new Vector2d(33,-66), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(38,-67), Math.toRadians(270.00));
 
         TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
                 .strafeTo(new Vector2d(-5,-30));
 
         TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
-                .strafeTo(new Vector2d(33,-66));
+                .strafeTo(new Vector2d(38,-67));
 
         TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
                 .strafeTo(new Vector2d(-2,-30));
