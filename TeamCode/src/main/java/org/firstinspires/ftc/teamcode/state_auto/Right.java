@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.state_auto;
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.auto.RR_Left;
+import org.firstinspires.ftc.teamcode.subsystem.angle_system;
 import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -78,6 +79,9 @@ public final class Right extends LinearOpMode {
         holder_system holder = new holder_system(
                 hardwareMap.get(Servo.class, "holder")
         );
+        angle_system angle = new angle_system(
+                hardwareMap.get(Servo.class, "angle")
+        );
 
         spin_system spin = new spin_system(
                 hardwareMap.get(Servo.class, "spin")
@@ -133,6 +137,7 @@ public final class Right extends LinearOpMode {
         back_arm.front();
         spin.atfront();
         holder.close();
+        angle.middle();
 
 
 
