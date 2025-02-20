@@ -86,7 +86,7 @@ public final class Right extends LinearOpMode {
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
                 //.afterTime(0,new RR_Left.ArmAction(leftholder,rightholder,1,0))
-                .strafeTo(new Vector2d(-9,-29));
+                .strafeTo(new Vector2d(-6,-25));
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
                 .strafeTo(new Vector2d(31,-37))
