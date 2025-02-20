@@ -98,9 +98,8 @@ public final class Right extends LinearOpMode {
                 .strafeTo(new Vector2d(-6,-28));
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
-                .strafeTo(new Vector2d(30,-37))
-                .splineToConstantHeading(new Vector2d(35, -12), Math.toRadians(90.00))
-
+                .strafeTo(new Vector2d(31,-37))
+                .splineToConstantHeading(new Vector2d(33, -12), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(45, -11), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
