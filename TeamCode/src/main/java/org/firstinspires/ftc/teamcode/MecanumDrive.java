@@ -115,7 +115,6 @@ public final class MecanumDrive {
     public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
     public final DcMotor leftLevel, rightLevel;
     public final Servo claw, leftclaw, rightclaw, spin, rightslide, leftslide, holder, leftholder, rightholder;
-    public final DcMotor RD, LD;
 
     public final VoltageSensor voltageSensor;
 
@@ -279,18 +278,6 @@ public final class MecanumDrive {
         holder = hardwareMap.get(Servo.class,"holder");
         leftholder = hardwareMap.get(Servo.class,"leftholder");
         rightholder = hardwareMap.get(Servo.class,"rightholder");
-
-        RD = hardwareMap.get(DcMotor.class,"RD");
-        LD = hardwareMap.get(DcMotor.class,"LD");
-        RD.setDirection(DcMotorSimple.Direction.REVERSE);
-        RD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RD.setTargetPosition(0);
-        LD.setTargetPosition(0);
-        RD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        LD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
     }

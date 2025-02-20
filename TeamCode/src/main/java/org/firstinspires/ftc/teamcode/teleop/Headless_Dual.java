@@ -37,8 +37,6 @@ public class Headless_Dual extends OpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private DcMotor LD;
-    private DcMotor RD;
     private Servo leftclaw;
     private Servo rightclaw;
     private Servo leftslide;
@@ -86,19 +84,6 @@ public class Headless_Dual extends OpMode {
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        RD = hardwareMap.get(DcMotor.class,"RD");
-        LD = hardwareMap.get(DcMotor.class,"LD");
-        RD.setDirection(DcMotorSimple.Direction.REVERSE);
-        //RD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //LD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //RD.setTargetPosition(0);
-        //LD.setTargetPosition(0);
-        //RD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //LD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //RD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //LD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
 
 
 
@@ -381,14 +366,6 @@ public class Headless_Dual extends OpMode {
         if (!gamepad2.dpad_right) {
             dpad_rightPressed = false;
         }
-
-
-        LD.setPower(-.2);
-        RD.setPower(-.2);
-
-        double dpower = gamepad2.right_trigger - gamepad2.left_trigger;
-        LD.setPower(.2*dpower);
-        RD.setPower(.2*dpower);
 
 
         //end of level system
