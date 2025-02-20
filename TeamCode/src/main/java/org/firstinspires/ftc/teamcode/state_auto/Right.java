@@ -86,19 +86,19 @@ public final class Right extends LinearOpMode {
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
                 //.afterTime(0,new RR_Left.ArmAction(leftholder,rightholder,1,0))
-                .strafeTo(new Vector2d(-6,-28));
+                .strafeTo(new Vector2d(-9,-29));
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
                 .strafeTo(new Vector2d(31,-37))
-                .splineToConstantHeading(new Vector2d(33, -12), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45, -11), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(33, -10), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45, -10), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(58.00, -10), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(58.00, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(58.00, -6), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(64.00, -6), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(64.00, -58), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(58.00, -4), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(65.00, -6), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(65.00, -58), Math.toRadians(270.00));
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
                 .splineToConstantHeading(new Vector2d(38,-67), Math.toRadians(270.00));
