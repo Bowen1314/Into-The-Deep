@@ -124,7 +124,7 @@ public final class Right extends LinearOpMode {
         back_arm.front();
         spin.atfront();
         holder.close();
-        angle.down();
+        angle.middle();
 
 
 
@@ -147,6 +147,7 @@ public final class Right extends LinearOpMode {
                 push.build()
             )
         );
+
         back_arm.back();
         spin.atback();
         holder.open();
