@@ -44,7 +44,7 @@ public final class Right extends LinearOpMode {
 
 
         Pose2d initialPose = new Pose2d(14, -62, Math.toRadians(90));
-        Pose2d preloadSamplePose = new Pose2d(-5,-32, Math.toRadians(90));
+        Pose2d preloadSamplePose = new Pose2d(-8,-32, Math.toRadians(90));
         Pose2d thirdPose = new Pose2d(65.00, -55, Math.toRadians(90));
         Pose2d humanPlayerPose = new Pose2d(37,-60, Math.toRadians(90));
         Pose2d secondSamplePose = new Pose2d(-2,-32, Math.toRadians(90));
@@ -91,33 +91,33 @@ public final class Right extends LinearOpMode {
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
                 .strafeTo(new Vector2d(31,-37))
-                .splineToConstantHeading(new Vector2d(33, -10), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45, -10), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(33, -15), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45, -15), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45.00, -5), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(60, -5), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(60, -10), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(60, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(60, -4), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(66, -6), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(66, -58), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(60, 0), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(64, 0), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(64, -58), Math.toRadians(270.00));
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
                 .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00));
 
         TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(-5,-25));
+                .strafeTo(new Vector2d(-6,-25));
 
         TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
                 .strafeTo(new Vector2d(38,-70));
 
         TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(-2,-25));
+                .strafeTo(new Vector2d(-4,-25));
 
         TrajectoryActionBuilder fourth_sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(1,-25));
+                .strafeTo(new Vector2d(-2,-25));
 
         TrajectoryActionBuilder fifth_sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(4,-25));
+                .strafeTo(new Vector2d(0,-25));
 
 
 
