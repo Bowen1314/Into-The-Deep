@@ -24,6 +24,7 @@ import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
 import org.firstinspires.ftc.teamcode.subsystem.holder_system;
 import org.firstinspires.ftc.teamcode.subsystem.level_system;
 import org.firstinspires.ftc.teamcode.subsystem.spin_system;
+import org.firstinspires.ftc.teamcode.tools.vib;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -169,6 +170,7 @@ public class Headless_Dual extends OpMode {
             rightclaw.setPosition(1);
             holder.setPosition(0.6);
             spin.setPosition(1);
+            vib.vibrate(gamepad1,500);
         }
         //start of starting position & setup
 
