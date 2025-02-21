@@ -31,6 +31,7 @@ public class Right_Auto {
                         .splineToConstantHeading(new Vector2d(60, 0), Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(70, 0), Math.toRadians(270.00))
                         .splineToConstantHeading(new Vector2d(64, -58), Math.toRadians(270.00))
+
                         .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00))
                         .strafeTo(new Vector2d(-6,-25))
                         .strafeTo(new Vector2d(38,-70))
