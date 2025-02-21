@@ -146,7 +146,6 @@ public class state_teleop extends OpMode {
     @Override
     public void loop() {
 
-
         if (gamepad1.right_stick_button){
             leftLevel.setTargetPosition(400);
             rightLevel.setTargetPosition(400);
@@ -242,16 +241,6 @@ public class state_teleop extends OpMode {
             claw.setPosition(0.1);
             claw_mouse.setPosition(0.7);
         }
-
-
-
-
-
-
-
-
-
-
 
 
 

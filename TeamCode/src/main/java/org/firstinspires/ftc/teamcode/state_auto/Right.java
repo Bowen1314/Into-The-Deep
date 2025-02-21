@@ -51,6 +51,7 @@ public final class Right extends LinearOpMode {
         Pose2d thirdSamplePose = new Pose2d(1,-32, Math.toRadians(90));
         Pose2d fourthSamplePose = new Pose2d(4,-32, Math.toRadians(90));
         Pose2d fifthSamplePose = new Pose2d(7,-32, Math.toRadians(90));
+
         front_claw_system front_claw = new front_claw_system(
                 hardwareMap.get(Servo.class, "leftclaw"),
                 hardwareMap.get(Servo.class, "rightclaw")
@@ -87,12 +88,12 @@ public final class Right extends LinearOpMode {
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
                 //.afterTime(0,new RR_Left.ArmAction(leftholder,rightholder,1,0))
-                .strafeTo(new Vector2d(-4,-23));
+                .strafeTo(new Vector2d(-4,-25));
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
                 .strafeTo(new Vector2d(31,-37))
-                .splineToConstantHeading(new Vector2d(33, -15), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45, -15), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(33, -10), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45, -10), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(45.00, -15), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(60, -15), Math.toRadians(270.00))
@@ -104,14 +105,13 @@ public final class Right extends LinearOpMode {
 
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
-                .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(38,-67), Math.toRadians(270.00));
 
         TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
-
-                .strafeTo(new Vector2d(-2,-25));
+                .strafeTo(new Vector2d(-2,-27));
 
         TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
-                .strafeTo(new Vector2d(40,-65));
+                .strafeTo(new Vector2d(40,-67));
 
 
         TrajectoryActionBuilder tohuman2 = drive.actionBuilder(secondSamplePose)
@@ -122,13 +122,13 @@ public final class Right extends LinearOpMode {
                 .strafeTo(new Vector2d(42,-62 ));
 
         TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(0,-25));
+                .strafeTo(new Vector2d(0,-27));
 
         TrajectoryActionBuilder fourth_sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(2,-25));
+                .strafeTo(new Vector2d(2,-27));
 
         TrajectoryActionBuilder fifth_sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(4,-25));
+                .strafeTo(new Vector2d(4,-27));
 
 
 
