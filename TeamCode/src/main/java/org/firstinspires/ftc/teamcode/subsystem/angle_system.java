@@ -15,6 +15,10 @@ public class angle_system {
     public void middle() {
         angle.setPosition(.5);
     }
+    public void grab() {
+        angle.setPosition(.7);
+    }
+
 
     public void up() {
         angle.setPosition(1);
@@ -53,6 +57,16 @@ public class angle_system {
             @Override
             public void run() {
                 down();
+                timer.cancel();
+            }
+        }, delayMillis);
+    }
+    public void grab(final long delayMillis) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                grab();
                 timer.cancel();
             }
         }, delayMillis);

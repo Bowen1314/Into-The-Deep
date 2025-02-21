@@ -65,20 +65,16 @@ public class state_servo extends OpMode {
         // Clip motor powers to be in range [-1.0, 1.0]
 
         if (gamepad1.x) {
-            //leftholder.setPosition(0);
-            //rightholder.setPosition(1);
-            angle.setPosition(1);
-            //spin.setPosition(0);
+            leftslide.setPosition(1);
+            rightsilde.setPosition(0);
 
 
         }
 
         if (gamepad1.y) {
-            //servo.setPosition(.5);
-            //leftholder.setPosition(.5);
-            //rightholder.setPosition(.5);
-            angle.setPosition(.5);
-            //spin.setPosition(.5);
+            leftslide.setPosition(.5);
+            rightsilde.setPosition(.5);
+
         }
 
         if (gamepad1.a) {

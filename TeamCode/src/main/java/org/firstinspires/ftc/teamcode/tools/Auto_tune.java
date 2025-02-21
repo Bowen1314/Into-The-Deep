@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode.state_auto;
+package org.firstinspires.ftc.teamcode.tools;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.robotcore.external.android.AndroidGyroscope;
 import org.firstinspires.ftc.teamcode.auto.RR_Left;
 import org.firstinspires.ftc.teamcode.subsystem.angle_system;
 import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
@@ -27,8 +26,8 @@ import org.firstinspires.ftc.teamcode.subsystem.back_arm_system;
 import org.firstinspires.ftc.teamcode.subsystem.holder_system;
 import org.firstinspires.ftc.teamcode.subsystem.spin_system;
 
-@Autonomous(name = "AAA - State Right", group = "A State RR")
-public final class Right extends LinearOpMode {
+@Autonomous(name = "Auto_tune", group = "A State RR")
+public final class Auto_tune extends LinearOpMode {
 
 
     @Override
@@ -87,202 +86,45 @@ public final class Right extends LinearOpMode {
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
                 //.afterTime(0,new RR_Left.ArmAction(leftholder,rightholder,1,0))
-                .strafeTo(new Vector2d(-6,-23));
+                .strafeTo(new Vector2d(-6,-25));
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
                 .strafeTo(new Vector2d(31,-37))
                 .splineToConstantHeading(new Vector2d(33, -10), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(45, -10), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45.00, -5), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(60, -5), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(60, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(60, -4), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(66, -6), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(66, -58), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(58.00, -10), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(58.00, -58), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(58.00, -4), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(65.00, -6), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(65.00, -58), Math.toRadians(270.00));
 
         TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
-                .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(38,-67), Math.toRadians(270.00));
 
         TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(-5,-25));
+                .strafeTo(new Vector2d(-5,-30));
 
         TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
-                .strafeTo(new Vector2d(38,-70));
+                .strafeTo(new Vector2d(38,-67));
 
         TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(-2,-25));
+                .strafeTo(new Vector2d(-2,-30));
 
         TrajectoryActionBuilder fourth_sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(1,-25));
+                .strafeTo(new Vector2d(1,-30));
 
         TrajectoryActionBuilder fifth_sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(4,-25));
+                .strafeTo(new Vector2d(4,-30));
 
 
 
 
-        back_arm.front();
-        spin.atfront();
-        holder.close();
+
         angle.grab();
-
-
 
         waitForStart();
-
-        back_arm.middle();
-
-        level.chamber_high();
-        back_arm.clip(1700);
-        level.origin(1900);
-        holder.open(2100);
-        Actions.runBlocking(
-            new SequentialAction(
-                preload.build()
-            )
-        );
-
-        Actions.runBlocking(
-            new SequentialAction(
-                push.build()
-            )
-        );
-
-        back_arm.back();
-        spin.atback();
-        holder.open();
-        angle.grab();
-
-
-        Actions.runBlocking(
-            new SequentialAction(
-                human.build()
-            )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
-                    wait_sec_2.build()
-                )
-        );
-
-        holder.close();
-
-        level.chamber_high(300);
-        back_arm.middle(700);
-        spin.atfront(500);
-        back_arm.clip(1900);
-        level.origin(2100);
-        holder.open(2300);
-
-        Actions.runBlocking(
-            new SequentialAction(
-                Second_Sample.build()
-            )
-        );
-        back_arm.back();
-        spin.atback();
-        holder.open();
-        angle.grab();
-
-
-
-
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        tohuman.build()
-                )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec_2.build()
-                )
-        );
-
-        holder.close();
-        level.chamber_high(300);
-        back_arm.middle(700);
-        spin.atfront(500);
-        back_arm.clip(1900);
-        level.origin(2100);
-        holder.open(2300);
-
-
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        Third_Sample.build()
-                )
-        );
-
-
-        back_arm.back();
-        spin.atback();
-        holder.open();
-        angle.grab();
-
-
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        tohuman.build()
-                )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec_2.build()
-                )
-        );
-
-        holder.close();
-        level.chamber_high(300);
-        back_arm.middle(700);
-        spin.atfront(500);
-        back_arm.clip(1900);
-        level.origin(2100);
-        holder.open(2300);
-
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        fourth_sample.build()
-                )
-        );
-
-        back_arm.back();
-        spin.atback();
-        holder.open();
-        angle.grab();
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        tohuman.build()
-                )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
-                        wait_sec_2.build()
-                )
-        );
-
-        holder.close();
-        level.chamber_high(300);
-        back_arm.middle(700);
-        spin.atfront(500);
-        back_arm.clip(1900);
-        level.origin(2100);
-        holder.open(2300);
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        fifth_sample.build()
-                )
-        );
-
-        telemetry.addData("LevelL",level.getCurrentPositionL());
-        telemetry.addData("LevelR",level.getCurrentPositionR());
-        telemetry.update();
 
     }
 
