@@ -31,8 +31,6 @@ public class Level_Test extends OpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private DcMotor LD;
-    private DcMotor RD;
     private Servo leftclaw;
     private Servo rightclaw;
     private Servo leftslide;
@@ -86,11 +84,6 @@ public class Level_Test extends OpMode {
         leftLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        RD = hardwareMap.get(DcMotor.class, "RD");
-        LD = hardwareMap.get(DcMotor.class, "LD");
-        RD.setDirection(DcMotorSimple.Direction.REVERSE);
-        RD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        LD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 
@@ -153,11 +146,6 @@ public class Level_Test extends OpMode {
 
         leftLevel.setPower(levelpower-.1);
         rightLevel.setPower(levelpower-.1);
-
-        double Dpower = gamepad2.left_trigger - gamepad2.right_trigger;
-
-        RD.setPower(.5*Dpower);
-        LD.setPower(.5*Dpower);
 
         //start of claw open/close
         //
