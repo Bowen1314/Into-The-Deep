@@ -14,6 +14,8 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 //import section
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -26,20 +28,21 @@ import org.firstinspires.ftc.teamcode.subsystem.front_claw_system;
 import org.firstinspires.ftc.teamcode.subsystem.holder_system;
 import org.firstinspires.ftc.teamcode.subsystem.level_system;
 import org.firstinspires.ftc.teamcode.subsystem.spin_system;
-import org.firstinspires.ftc.teamcode.tools.vib;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "AAA - Driving System Dual", group = "AAA-First")
-public class Headless_Dual extends OpMode {
+@TeleOp(name = "State Teleop - Driving System Dual", group = "AAA-First")
+public class state_teleop extends OpMode {
     //declear all usage
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
+    private DcMotor LD;
+    private DcMotor RD;
     private Servo leftclaw;
     private Servo rightclaw;
     private Servo leftslide;
@@ -75,6 +78,15 @@ public class Headless_Dual extends OpMode {
     @Override
     public void init() {
 
+        Pose2d beginPose = new Pose2d(14, -62,Math.toRadians(90));
+
+        // 初始化 MecanumDrive
+        MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+        Pose2d currentPose = new Pose2d(drive.pose.position.x, drive.pose.position.y, drive.pose.heading.toDouble());
+        TrajectoryActionBuilder push = drive.actionBuilder(beginPose)
+                .splineToConstantHeading(new Vector2d(33, -12), Math.toRadians(90.00));
+
+
 
         //wheels
         frontLeft = hardwareMap.get(DcMotor.class, "LF");
@@ -90,8 +102,9 @@ public class Headless_Dual extends OpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
-
+        RD = hardwareMap.get(DcMotor.class,"RD");
+        LD = hardwareMap.get(DcMotor.class,"LD");
+        RD.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //claw system
         claw = hardwareMap.get(Servo.class, "claw");
@@ -113,7 +126,7 @@ public class Headless_Dual extends OpMode {
         leftLevel = hardwareMap.get(DcMotor.class, "leftlevel");
         rightLevel = hardwareMap.get(DcMotor.class, "rightlevel");
         //level system config
-        rightLevel.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftLevel.setDirection(DcMotorSimple.Direction.REVERSE);
         leftLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftLevel.setTargetPosition(0);
@@ -136,31 +149,6 @@ public class Headless_Dual extends OpMode {
         imu.initialize(parameters);
 
 
-        front_claw_system front_claw = new front_claw_system(
-                hardwareMap.get(Servo.class, "leftclaw"),
-                hardwareMap.get(Servo.class, "rightclaw")
-        );
-
-        level_system level = new level_system(
-                hardwareMap.get(DcMotor.class, "leftlevel"),
-                hardwareMap.get(DcMotor.class, "rightlevel")
-        );
-        back_arm_system back_arm = new back_arm_system(
-                hardwareMap.get(Servo.class, "leftholder"),
-                hardwareMap.get(Servo.class, "rightholder")
-        );
-        holder_system holder = new holder_system(
-                hardwareMap.get(Servo.class, "holder")
-        );
-        angle_system angle = new angle_system(
-                hardwareMap.get(Servo.class, "angle")
-        );
-
-        spin_system spin = new spin_system(
-                hardwareMap.get(Servo.class, "spin")
-        );
-
-
 
 
 
@@ -169,12 +157,16 @@ public class Headless_Dual extends OpMode {
     @Override
     public void loop() {
 
+
         if (gamepad1.right_stick_button){
 
-            rightclaw.setPosition(1);
-            holder.setPosition(0.6);
-            spin.setPosition(1);
-            vib.vibrate(gamepad1,500);
+
+            leftholder.setPosition(0);
+            rightholder.setPosition(1);
+
+            holder.setPosition(0);
+            spin.setPosition(.7);
+            angle.setPosition(.5);
         }
         //start of starting position & setup
 
@@ -185,10 +177,6 @@ public class Headless_Dual extends OpMode {
         int leftLevel_Target = leftLevel.getCurrentPosition() + (int) ((second_left_trigger-second_right_trigger)*increment);
         int rightLevel_Target = rightLevel.getCurrentPosition() + (int) ((second_left_trigger-second_right_trigger)*increment);
 
-        //leftLevel.setTargetPosition(leftLevel_Target);
-        //rightLevel.setTargetPosition(rightLevel_Target);
-        //leftLevel.setPower(1);
-        //rightLevel.setPower(1);
 
 
         //Start of MacanumDive using headless mode
@@ -300,10 +288,10 @@ public class Headless_Dual extends OpMode {
         if (gamepad2.dpad_left && !dpad_leftPressed) {
             levelAt2000 = !levelAt2000;
             if (levelAt2000) {
-                leftLevel.setTargetPosition(900);
-                rightLevel.setTargetPosition(900);
-                rightholder.setPosition(1);
-                leftholder.setPosition(0);
+                leftLevel.setTargetPosition(400);
+                rightLevel.setTargetPosition(400);
+                rightholder.setPosition(.5);
+                leftholder.setPosition(.5);
                 spin.setPosition(0);
             } else {
                 leftLevel.setTargetPosition(0);
@@ -332,15 +320,16 @@ public class Headless_Dual extends OpMode {
             if (levelAt4000) {
                 leftLevel.setTargetPosition(4000);
                 rightLevel.setTargetPosition(4000);
-                spin.setPosition(1);
-                rightholder.setPosition(1);
-                leftholder.setPosition(0);
+                spin.setPosition(0);
+                leftholder.setPosition(1);
+                rightholder.setPosition(0);
+
             } else {
                 leftLevel.setTargetPosition(0);
                 rightLevel.setTargetPosition(0);
-                spin.setPosition(1);
-                rightholder.setPosition(0);
-                leftholder.setPosition(1);
+                spin.setPosition(.7);
+                rightholder.setPosition(1);
+                leftholder.setPosition(0);
             }
             leftLevel.setPower(1.0);
             rightLevel.setPower(1.0);
