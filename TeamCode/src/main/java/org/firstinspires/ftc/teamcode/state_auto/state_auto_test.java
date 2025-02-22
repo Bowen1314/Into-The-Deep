@@ -27,7 +27,7 @@ import org.firstinspires.ftc.teamcode.subsystem.back_arm_system;
 import org.firstinspires.ftc.teamcode.subsystem.holder_system;
 import org.firstinspires.ftc.teamcode.subsystem.spin_system;
 
-@Autonomous(name = "AAA - State Right Test", group = "A State RR")
+@Autonomous(name = "AAA - State Right TESt", group = "A State RR")
 public final class state_auto_test extends LinearOpMode {
 
 
@@ -47,14 +47,11 @@ public final class state_auto_test extends LinearOpMode {
         Pose2d preloadSamplePose = new Pose2d(-8,-32, Math.toRadians(90));
         Pose2d thirdPose = new Pose2d(65.00, -55, Math.toRadians(90));
         Pose2d humanPlayerPose = new Pose2d(37,-60, Math.toRadians(90));
-        Pose2d secondSamplePose = new Pose2d(-6,-32, Math.toRadians(90));
-        Pose2d thirdSamplePose = new Pose2d(-4,-32, Math.toRadians(90));
-        Pose2d fourthSamplePose = new Pose2d(-2,-32, Math.toRadians(90));
-        Pose2d fifthSamplePose = new Pose2d(0,-32, Math.toRadians(90));
-        front_claw_system front_claw = new front_claw_system(
-                hardwareMap.get(Servo.class, "leftclaw"),
-                hardwareMap.get(Servo.class, "rightclaw")
-        );
+        Pose2d secondSamplePose = new Pose2d(-2,-32, Math.toRadians(90));
+        Pose2d thirdSamplePose = new Pose2d(1,-32, Math.toRadians(90));
+        Pose2d fourthSamplePose = new Pose2d(4,-32, Math.toRadians(90));
+        Pose2d fifthSamplePose = new Pose2d(7,-32, Math.toRadians(90));
+
 
         level_system level = new level_system(
                 hardwareMap.get(DcMotor.class, "leftlevel"),
@@ -87,45 +84,47 @@ public final class state_auto_test extends LinearOpMode {
 
         TrajectoryActionBuilder preload = drive.actionBuilder(initialPose)
                 //.afterTime(0,new RR_Left.ArmAction(leftholder,rightholder,1,0))
-                .strafeTo(new Vector2d(-6,-23));
-
-        TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
-                .strafeTo(new Vector2d(15,-33))
-                .splineToConstantHeading(new Vector2d(33, -15), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45, -15), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45.00, -10), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(60, -10), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(60, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(60, 0), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(70, 0), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(64, -58), Math.toRadians(270.00));
-
-        TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
-                .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00));
-
-        TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(-6,-25));
-
-        TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
-                .strafeTo(new Vector2d(38,-70));
-
-        TrajectoryActionBuilder tohuman2 = drive.actionBuilder(secondSamplePose)
-                .strafeTo(new Vector2d(38,-70));
-        TrajectoryActionBuilder tohuman3 = drive.actionBuilder(thirdSamplePose)
-                .strafeTo(new Vector2d(38,-70));
-        TrajectoryActionBuilder tohuman4 = drive.actionBuilder(fourthSamplePose)
-                .strafeTo(new Vector2d(38,-70));
-
-
-        TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
                 .strafeTo(new Vector2d(-4,-25));
 
+        TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
+                .strafeTo(new Vector2d(31,-37))
+                .splineToConstantHeading(new Vector2d(33, -10), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45, -10), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45.00, -15), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(60, -15), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(60, -58), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(60, 0), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(65, 0), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(65, -58), Math.toRadians(270.00));
+
+
+
+        TrajectoryActionBuilder human = drive.actionBuilder(thirdPose)
+                .splineToConstantHeading(new Vector2d(38,-67), Math.toRadians(270.00));
+
+        TrajectoryActionBuilder Second_Sample = drive.actionBuilder(humanPlayerPose)
+                .strafeTo(new Vector2d(-2,-27));
+
+        TrajectoryActionBuilder tohuman = drive.actionBuilder(currentPose)
+                .splineToConstantHeading(new Vector2d(40,-67), Math.toRadians(270.00));
+
+
+        TrajectoryActionBuilder tohuman2 = drive.actionBuilder(secondSamplePose)
+                .splineToConstantHeading(new Vector2d(41,-65), Math.toRadians(270.00));
+        TrajectoryActionBuilder tohuman3 = drive.actionBuilder(thirdSamplePose)
+                .splineToConstantHeading(new Vector2d(43,-65), Math.toRadians(270.00));
+        TrajectoryActionBuilder tohuman4 = drive.actionBuilder(fourthSamplePose)
+                .splineToConstantHeading(new Vector2d(45,-65 ), Math.toRadians(270.00));
+
+        TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
+                .strafeTo(new Vector2d(0,-27));
+
         TrajectoryActionBuilder fourth_sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(-2,-25));
+                .strafeTo(new Vector2d(2,-27));
 
         TrajectoryActionBuilder fifth_sample = drive.actionBuilder(humanPlayerPose)
-                .strafeTo(new Vector2d(0,-25));
+                .strafeTo(new Vector2d(4,-27));
 
 
 

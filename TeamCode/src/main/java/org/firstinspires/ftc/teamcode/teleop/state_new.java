@@ -12,7 +12,6 @@
 
 package org.firstinspires.ftc.teamcode.teleop;
 
-//import section
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -35,9 +34,9 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "State Teleop - Driving System Dual", group = "AAA-First")
-public class state_teleop extends OpMode {
-    //declear all usage
+@TeleOp(name = "AAAAA State New", group = "AAAAAAAAA-First")
+public class state_new extends OpMode {
+    // 定义所有硬件
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -55,33 +54,32 @@ public class state_teleop extends OpMode {
     private IMU imu;
     private DcMotor leftLevel;
     private DcMotor rightLevel;
-    private double mutispeed = .7;
+    private double mutispeed = 0.7;
     private ElapsedTime slideTimer = new ElapsedTime();
     private boolean slideDelayStarted = false;
     boolean slide_extend = false;
+    boolean claw_opened555 = false;
 
     boolean claw_down = false;
     boolean a_pressed = false;
+    boolean b_pressed = false;
+
+    // 控制 claw 只设置一次的位置操作变量
+    private boolean clawTriggered = false;
 
     private float currentHeading;
     private float headingOffset = 0;
 
-
     @Override
     public void init() {
+        Pose2d beginPose = new Pose2d(14, -62, Math.toRadians(90));
 
-        Pose2d beginPose = new Pose2d(14, -62,Math.toRadians(90));
-
-        // 初始化 MecanumDrive
-
-
-
-        //wheels
+        // 初始化轮子
         frontLeft = hardwareMap.get(DcMotor.class, "LF");
         frontRight = hardwareMap.get(DcMotor.class, "RF");
         backLeft = hardwareMap.get(DcMotor.class, "LB");
         backRight = hardwareMap.get(DcMotor.class, "RB");
-        //wheels config
+
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
 
@@ -90,27 +88,25 @@ public class state_teleop extends OpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
-        //claw system
+        // 初始化 claw 系统
         claw = hardwareMap.get(Servo.class, "claw");
-        claw_mouse = hardwareMap.get(Servo.class,"claw_mouse");
-        claw_spin = hardwareMap.get(Servo.class,"claw_spin");
+        claw_mouse = hardwareMap.get(Servo.class, "claw_mouse");
+        claw_spin = hardwareMap.get(Servo.class, "claw_spin");
 
-        //slide
+        // 初始化 slide 系统（左右滑轨）
         rightsilde = hardwareMap.get(Servo.class, "rightslide");
         leftslide = hardwareMap.get(Servo.class, "leftslide");
 
-        //holder system
-        holder = hardwareMap.get(Servo.class,"holder");
-        leftholder = hardwareMap.get(Servo.class,"leftholder");
-        rightholder = hardwareMap.get(Servo.class,"rightholder");
-        spin = hardwareMap.get(Servo.class,"spin");
-        angle = hardwareMap.get(Servo.class,"angle");
+        // 初始化 holder 系统
+        holder = hardwareMap.get(Servo.class, "holder");
+        leftholder = hardwareMap.get(Servo.class, "leftholder");
+        rightholder = hardwareMap.get(Servo.class, "rightholder");
+        spin = hardwareMap.get(Servo.class, "spin");
+        angle = hardwareMap.get(Servo.class, "angle");
 
-        //level system
+        // 初始化 level 系统
         leftLevel = hardwareMap.get(DcMotor.class, "leftlevel");
         rightLevel = hardwareMap.get(DcMotor.class, "rightlevel");
-        //level system config
         leftLevel.setDirection(DcMotorSimple.Direction.REVERSE);
         leftLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLevel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -121,9 +117,7 @@ public class state_teleop extends OpMode {
         leftLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightLevel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
-
-        //gyro system
+        // 初始化陀螺仪
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(
                 new RevHubOrientationOnRobot(
@@ -132,25 +126,14 @@ public class state_teleop extends OpMode {
                 )
         );
         imu.initialize(parameters);
-
-
-
-
-
     }
 
     @Override
     public void loop() {
-
-
-        //Start of MacanumDive using headless mode
+        // Mecanum 驱动，无头模式
         if (gamepad1.y) {
             headingOffset = (float) imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         }
-
-
-
-
         currentHeading = (float) imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS) - headingOffset;
         double y = -gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
@@ -161,6 +144,7 @@ public class state_teleop extends OpMode {
         double frontRightPower = rotatedY - rotatedX - rx;
         double backLeftPower = rotatedY - rotatedX + rx;
         double backRightPower = rotatedY + rotatedX - rx;
+
         frontLeft.setPower(mutispeed * Range.clip(frontLeftPower, -1.0, 1.0));
         frontRight.setPower(mutispeed * Range.clip(frontRightPower, -1.0, 1.0));
         backLeft.setPower(mutispeed * Range.clip(backLeftPower, -1.0, 1.0));
@@ -171,62 +155,61 @@ public class state_teleop extends OpMode {
         telemetry.addData("Front Right Power", frontRightPower);
         telemetry.addData("Back Left Power", backLeftPower);
         telemetry.addData("Back Right Power", backRightPower);
-        telemetry.addData("Left Level",leftLevel.getCurrentPosition());
+        telemetry.addData("Left Level", leftLevel.getCurrentPosition());
         telemetry.addData("Right Level", rightLevel.getCurrentPosition());
         telemetry.update();
-        //End of MacanumDive using headless mode
 
-        if (gamepad1.right_trigger > 0.1 && !slideDelayStarted) {
-            slide_extend = true;
-
-        } else {
-            slide_extend = false;
+        // 控制 claw 的位置：只在触发器第一次按下时设置一次位置
+        if (gamepad1.right_trigger > 0.1 && !clawTriggered) {
+            claw.setPosition(.5);
+            clawTriggered = true;
+        } else if (gamepad1.right_trigger <= 0.1) {
+            claw.setPosition(1);
+            clawTriggered = false;
             a_pressed = false;
         }
 
+
+
+        // slide 控制：每次循环都会根据右侧触发器的状态设置左右滑轨的位置
+        if (gamepad1.right_trigger > 0.1) {
+            leftslide.setPosition(0.8);
+            rightsilde.setPosition(0.2);
+        } else {
+            leftslide.setPosition(1);
+            rightsilde.setPosition(0);
+        }
+
+
         if (gamepad1.a && !a_pressed) {
-            claw_down = !claw_down;  // Toggle the boolean
-        }
-        a_pressed = gamepad1.a;
+            claw_down = !claw_down;
+            a_pressed = true;
+            if (claw_down) {
+                claw.setPosition(.35);
+                claw_mouse.setPosition(0);
 
-        if (gamepad1.dpad_up) {
-            holder.setPosition(0.4);
-            claw_down = false;
-            leftLevel.setTargetPosition(3000);
-            rightLevel.setTargetPosition(3000);
-            leftLevel.setPower(1);
-            rightLevel.setPower(1);
+            } else {
+                claw.setPosition(.5);
 
+            }
         }
-
-
-        if (slide_extend && !claw_down) {
-            leftslide.setPosition(0.8);
-            rightsilde.setPosition(0.2);
-            claw.setPosition(0.5);
-
-        }
-        if (!slide_extend && !claw_down){
-            leftslide.setPosition(1);
-            rightsilde.setPosition(0);
-            claw.setPosition(1);
-        }
-        if (!slide_extend && claw_down){
-            leftslide.setPosition(1);
-            rightsilde.setPosition(0);
-            claw.setPosition(1);
-        }
-        if (slide_extend && claw_down) {
-            leftslide.setPosition(0.8);
-            rightsilde.setPosition(0.2);
-            claw.setPosition(0.1);
-            claw_mouse.setPosition(0.6);
+        if (!gamepad1.a) {
+            a_pressed = false;
         }
 
+        if (gamepad1.b && !b_pressed) {
+            claw_opened555 = !claw_opened555;
+            b_pressed = true;
+            if (claw_opened555) {
+                claw_mouse.setPosition(0);
 
+            } else {
+                claw_mouse.setPosition(6);
 
-
-
-        //end of level system
+            }
+        }
+        if (!gamepad1.b) {
+            b_pressed = false;
+        }
     }
 }

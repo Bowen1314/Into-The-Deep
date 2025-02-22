@@ -22,7 +22,7 @@ public class Right_Auto {
         RoadRunnerBotEntity Blue = new DefaultBotBuilder(meepMeep)
                 .setConstraints(80, 80, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(14, -62, Math.toRadians(90)))
-                        .strafeTo(new Vector2d(-6,-23))
+                        .lineToConstantHeading(new Vector2d(-6,-23))
                         .strafeTo(new Vector2d(15,-33))
                         .splineToConstantHeading(new Vector2d(33, -15), Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(45, -15), Math.toRadians(270.00))
@@ -36,11 +36,11 @@ public class Right_Auto {
 
                         .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00))
                         .strafeTo(new Vector2d(-6,-25))
-                        .strafeTo(new Vector2d(38,-70))
+                        .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00))
                         .strafeTo(new Vector2d(-4,-25))
-                        .strafeTo(new Vector2d(38,-70))
+                        .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00))
                         .strafeTo(new Vector2d(-2,-25))
-                        .strafeTo(new Vector2d(38,-70))
+                        .splineToConstantHeading(new Vector2d(38,-70), Math.toRadians(270.00))
                         .strafeTo(new Vector2d(0,-25))
 
 

@@ -29,6 +29,9 @@ import org.firstinspires.ftc.teamcode.subsystem.spin_system;
 
 @Autonomous(name = "AAA - State Right", group = "A State RR")
 public final class Right extends LinearOpMode {
+    private Servo leftslide;
+    private Servo rightsilde;
+
 
 
     @Override
@@ -42,6 +45,9 @@ public final class Right extends LinearOpMode {
 
         Pose2d currentPose = new Pose2d(drive.pose.position.x, drive.pose.position.y, drive.pose.heading.toDouble());
 
+        rightsilde = hardwareMap.get(Servo.class, "rightslide");
+        leftslide = hardwareMap.get(Servo.class, "leftslide");
+
 
         Pose2d initialPose = new Pose2d(14, -62, Math.toRadians(90));
         Pose2d preloadSamplePose = new Pose2d(-8,-32, Math.toRadians(90));
@@ -51,6 +57,13 @@ public final class Right extends LinearOpMode {
         Pose2d thirdSamplePose = new Pose2d(1,-32, Math.toRadians(90));
         Pose2d fourthSamplePose = new Pose2d(4,-32, Math.toRadians(90));
         Pose2d fifthSamplePose = new Pose2d(7,-32, Math.toRadians(90));
+
+
+        Pose2d human2p = new Pose2d(7,-32, Math.toRadians(90));
+        Pose2d human3p = new Pose2d(7,-32, Math.toRadians(90));
+        Pose2d human4 = new Pose2d(7,-32, Math.toRadians(90));
+        Pose2d human5p = new Pose2d(7,-32, Math.toRadians(90));
+
 
 
         level_system level = new level_system(
@@ -88,15 +101,15 @@ public final class Right extends LinearOpMode {
 
         TrajectoryActionBuilder push = drive.actionBuilder(preloadSamplePose)
                 .strafeTo(new Vector2d(31,-37))
-                .splineToConstantHeading(new Vector2d(33, -10), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45, -10), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(45.00, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(45.00, -15), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(60, -15), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(33, -13), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45, -13), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(45, -58), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(45, -10), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(60, -10), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(60, -58), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(60, 0), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(65, 0), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(65, -58), Math.toRadians(270.00));
+                .splineToConstantHeading(new Vector2d(60, 5), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(68, 5), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(68, -58), Math.toRadians(270.00));
 
 
 
@@ -133,6 +146,8 @@ public final class Right extends LinearOpMode {
         spin.atfront();
         holder.close();
         angle.grab();
+        leftslide.setPosition(1);
+        rightsilde.setPosition(0);
 
 
 

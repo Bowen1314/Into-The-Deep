@@ -14,11 +14,7 @@ import com.qualcomm.robotcore.util.Range;
 public class state_servo extends OpMode {
     Pose2d beginPose = new Pose2d(0, 0,Math.toRadians(0));
 
-    private Servo rightsilde,leftslide;
-    private Servo leftholder;
-    private Servo rightholder;
-    private Servo spin;
-    private Servo angle;
+    private Servo claw_mouse;
 
 
 
@@ -27,14 +23,8 @@ public class state_servo extends OpMode {
 
 
         //slide
-        rightsilde = hardwareMap.get(Servo.class, "rightslide");
-        leftslide = hardwareMap.get(Servo.class, "leftslide");
-
-        //holder system
-        leftholder = hardwareMap.get(Servo.class,"leftholder");
-        rightholder = hardwareMap.get(Servo.class,"rightholder");
-        spin = hardwareMap.get(Servo.class,"spin");
-        angle = hardwareMap.get(Servo.class,"angle");
+        claw_mouse = hardwareMap.get(Servo.class, "claw_mouse");
+        //holder sys
         // Initialize motors
 
 
@@ -51,28 +41,19 @@ public class state_servo extends OpMode {
         // Clip motor powers to be in range [-1.0, 1.0]
 
         if (gamepad1.x) {
-            leftslide.setPosition(1);
-            rightsilde.setPosition(0);
+            claw_mouse.setPosition(1);
+
 
 
         }
 
         if (gamepad1.y) {
-            leftslide.setPosition(.7);
-            rightsilde.setPosition(.3);
-
+            claw_mouse.setPosition(.5);
         }
 
         if (gamepad1.a) {
-            leftholder.setPosition(0.2);
-            rightholder.setPosition(0.8);
-        }
+                claw_mouse.setPosition(0);
 
-        if (gamepad1.b) {
-            //leftholder.setPosition(1);
-            //rightholder.setPosition(0);
-            angle.setPosition(0);
-            //spin.setPosition(.7);
         }
 
     }

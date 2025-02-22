@@ -31,11 +31,6 @@ public class Level_Test extends OpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private Servo leftclaw;
-    private Servo rightclaw;
-    private Servo leftslide;
-    private Servo rightsilde;
-    private Servo claw;
     private Servo holder;
     private Servo leftholder;
     private Servo rightholder;
@@ -62,14 +57,7 @@ public class Level_Test extends OpMode {
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        //claw system
-        claw = hardwareMap.get(Servo.class, "claw");
-        leftclaw = hardwareMap.get(Servo.class, "leftclaw");
-        rightclaw = hardwareMap.get(Servo.class, "rightclaw");
 
-        //slide
-        rightsilde = hardwareMap.get(Servo.class, "rightslide");
-        leftslide = hardwareMap.get(Servo.class, "leftslide");
 
         //holder system
         holder = hardwareMap.get(Servo.class,"holder");
