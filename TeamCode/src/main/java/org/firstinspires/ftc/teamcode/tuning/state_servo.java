@@ -14,18 +14,7 @@ import com.qualcomm.robotcore.util.Range;
 public class state_servo extends OpMode {
     Pose2d beginPose = new Pose2d(0, 0,Math.toRadians(0));
 
-    private DcMotor frontLeft;
-    private DcMotor frontRight;
-    private DcMotor backLeft;
-    private DcMotor backRight;
-    private DcMotor LD;
-    private DcMotor RD;
-    private Servo leftclaw;
-    private Servo rightclaw;
-    private Servo leftslide;
-    private Servo rightsilde;
-    private Servo claw;
-    private Servo holder;
+    private Servo rightsilde,leftslide;
     private Servo leftholder;
     private Servo rightholder;
     private Servo spin;
@@ -35,16 +24,13 @@ public class state_servo extends OpMode {
 
     @Override
     public void init() {
-        claw = hardwareMap.get(Servo.class, "claw");
-        leftclaw = hardwareMap.get(Servo.class, "leftclaw");
-        rightclaw = hardwareMap.get(Servo.class, "rightclaw");
+
 
         //slide
         rightsilde = hardwareMap.get(Servo.class, "rightslide");
         leftslide = hardwareMap.get(Servo.class, "leftslide");
 
         //holder system
-        holder = hardwareMap.get(Servo.class,"holder");
         leftholder = hardwareMap.get(Servo.class,"leftholder");
         rightholder = hardwareMap.get(Servo.class,"rightholder");
         spin = hardwareMap.get(Servo.class,"spin");
@@ -72,8 +58,8 @@ public class state_servo extends OpMode {
         }
 
         if (gamepad1.y) {
-            leftslide.setPosition(.5);
-            rightsilde.setPosition(.5);
+            leftslide.setPosition(.7);
+            rightsilde.setPosition(.3);
 
         }
 

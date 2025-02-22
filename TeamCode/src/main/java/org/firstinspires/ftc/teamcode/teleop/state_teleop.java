@@ -73,10 +73,6 @@ public class state_teleop extends OpMode {
         Pose2d beginPose = new Pose2d(14, -62,Math.toRadians(90));
 
         // 初始化 MecanumDrive
-        MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
-        Pose2d currentPose = new Pose2d(drive.pose.position.x, drive.pose.position.y, drive.pose.heading.toDouble());
-        TrajectoryActionBuilder push = drive.actionBuilder(beginPose)
-                .splineToConstantHeading(new Vector2d(33, -12), Math.toRadians(90.00));
 
 
 
@@ -146,24 +142,6 @@ public class state_teleop extends OpMode {
     @Override
     public void loop() {
 
-        if (gamepad1.right_stick_button){
-            leftLevel.setTargetPosition(400);
-            rightLevel.setTargetPosition(400);
-            leftLevel.setPower(1);
-            rightLevel.setPower(1);
-
-            leftholder.setPosition(0);
-            rightholder.setPosition(1);
-
-            holder.setPosition(0);
-            spin.setPosition(0);
-            angle.setPosition(.6);
-            leftslide.setPosition(1);
-            rightsilde.setPosition(0);
-
-            claw_spin.setPosition(0);
-            claw_mouse.setPosition(0);
-        }
 
         //Start of MacanumDive using headless mode
         if (gamepad1.y) {
@@ -201,6 +179,8 @@ public class state_teleop extends OpMode {
         if (gamepad1.right_trigger > 0.1 && !slideDelayStarted) {
             slide_extend = true;
 
+        } else {
+            slide_extend = false;
         }
 
         if (gamepad1.a && !a_pressed) {
@@ -220,8 +200,8 @@ public class state_teleop extends OpMode {
 
 
         if (slide_extend && !claw_down) {
-            leftslide.setPosition(0.5);
-            rightsilde.setPosition(0.5);
+            leftslide.setPosition(0.7);
+            rightsilde.setPosition(0.3);
             claw.setPosition(0.3);
 
         }
@@ -236,8 +216,8 @@ public class state_teleop extends OpMode {
             claw.setPosition(1);
         }
         if (slide_extend && claw_down) {
-            leftslide.setPosition(0.5);
-            rightsilde.setPosition(0.5);
+            leftslide.setPosition(0.7);
+            rightsilde.setPosition(0.3);
             claw.setPosition(0.1);
             claw_mouse.setPosition(0.7);
         }

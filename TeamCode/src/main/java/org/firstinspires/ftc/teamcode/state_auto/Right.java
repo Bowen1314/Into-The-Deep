@@ -52,10 +52,6 @@ public final class Right extends LinearOpMode {
         Pose2d fourthSamplePose = new Pose2d(4,-32, Math.toRadians(90));
         Pose2d fifthSamplePose = new Pose2d(7,-32, Math.toRadians(90));
 
-        front_claw_system front_claw = new front_claw_system(
-                hardwareMap.get(Servo.class, "leftclaw"),
-                hardwareMap.get(Servo.class, "rightclaw")
-        );
 
         level_system level = new level_system(
                 hardwareMap.get(DcMotor.class, "leftlevel"),
@@ -115,11 +111,11 @@ public final class Right extends LinearOpMode {
 
 
         TrajectoryActionBuilder tohuman2 = drive.actionBuilder(secondSamplePose)
-                .strafeTo(new Vector2d(40,-62));
+                .strafeTo(new Vector2d(41,-65));
         TrajectoryActionBuilder tohuman3 = drive.actionBuilder(thirdSamplePose)
-                .strafeTo(new Vector2d(41,-62));
+                .strafeTo(new Vector2d(43,-65));
         TrajectoryActionBuilder tohuman4 = drive.actionBuilder(fourthSamplePose)
-                .strafeTo(new Vector2d(42,-62 ));
+                .strafeTo(new Vector2d(45,-65 ));
 
         TrajectoryActionBuilder Third_Sample = drive.actionBuilder(humanPlayerPose)
                 .strafeTo(new Vector2d(0,-27));

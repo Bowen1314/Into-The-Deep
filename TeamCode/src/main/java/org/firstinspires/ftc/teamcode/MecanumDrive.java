@@ -114,7 +114,7 @@ public final class MecanumDrive {
 
     public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
     public final DcMotor leftLevel, rightLevel;
-    public final Servo claw, leftclaw, rightclaw, spin, rightslide, leftslide, holder, leftholder, rightholder;
+    public final Servo claw, spin, rightslide, leftslide, holder, leftholder, rightholder,angle,claw_mouse,claw_spin;
 
     public final VoltageSensor voltageSensor;
 
@@ -266,9 +266,11 @@ public final class MecanumDrive {
 
 
         claw = hardwareMap.get(Servo.class, "claw");
-        leftclaw = hardwareMap.get(Servo.class, "leftclaw");
-        rightclaw = hardwareMap.get(Servo.class, "rightclaw");
+        claw_spin = hardwareMap.get(Servo.class, "claw_spin");
+        claw_mouse = hardwareMap.get(Servo.class, "claw_mouse");
+        angle = hardwareMap.get(Servo.class,"angle");
         spin = hardwareMap.get(Servo.class,"spin");
+
 
         //slide
         rightslide = hardwareMap.get(Servo.class, "rightslide");
