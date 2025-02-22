@@ -192,8 +192,8 @@ public class state_teleop extends OpMode {
         if (gamepad1.dpad_up) {
             holder.setPosition(0.4);
             claw_down = false;
-            leftLevel.setTargetPosition(3000);
-            rightLevel.setTargetPosition(3000);
+            leftLevel.setTargetPosition(3300);
+            rightLevel.setTargetPosition(3300);
             leftLevel.setPower(1);
             rightLevel.setPower(1);
 

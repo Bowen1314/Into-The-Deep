@@ -55,7 +55,7 @@ public class state_new extends OpMode {
     private IMU imu;
     private DcMotor leftLevel;
     private DcMotor rightLevel;
-    private double mutispeed = 0.7;
+    private double mutispeed = 0.8;
     boolean yPressed = false;
     boolean d_upPressed = false;
     boolean d_leftPressed = false;
@@ -317,8 +317,8 @@ public class state_new extends OpMode {
             highbasket = !highbasket;
             d_upPressed = true;
             if (highbasket) {
-                leftLevel.setTargetPosition(3000);
-                rightLevel.setTargetPosition(3000);
+                leftLevel.setTargetPosition(3800);
+                rightLevel.setTargetPosition(3800);
                 leftLevel.setPower(1);
                 rightLevel.setPower(1);
                 highbasket();
@@ -441,7 +441,7 @@ public class state_new extends OpMode {
             rightsilde.setPosition(0);
             claw_spin.setPosition(0);
             clawspined = false;
-            mutispeed = 0.7;
+            mutispeed = 0.8;
         }
 
     }
@@ -462,7 +462,7 @@ public class state_new extends OpMode {
     public void highchamber() {
         leftholder.setPosition(.5);
         rightholder.setPosition(.5);
-        spin.setPosition(0);
+        spin.setPosition(0.7);
         angle.setPosition(.7);//.2
     }
 
