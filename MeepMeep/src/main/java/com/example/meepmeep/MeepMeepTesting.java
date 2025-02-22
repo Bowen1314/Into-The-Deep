@@ -20,10 +20,17 @@ public class MeepMeepTesting {
         RoadRunnerBotEntity Blue = new DefaultBotBuilder(meepMeep)
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(14, -62, Math.toRadians(90.00)))
-                        .splineTo(new Vector2d(-8.53, -30.33), Math.toRadians(90.00))
-                        .splineTo(new Vector2d(21.73, -40.56), Math.toRadians(18.43))
-                        .splineTo(new Vector2d(34.48, -35.67), Math.toRadians(91.55))
-                        .splineTo(new Vector2d(36.11, -22.32), Math.toRadians(84.29))
+                        .splineToConstantHeading(new Vector2d(-4.82, -31.37), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(12.98, -41.15), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(35.52, -28.84), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(38.78, -12.53), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(49.16, -14.01), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(48.27, -65.77), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(51.09, -12.09), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(59.99, -11.79), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(60.43, -66.22), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(66.22, -12.09), Math.toRadians(270.00))
+                        .splineToConstantHeading(new Vector2d(66.07, -65.77), Math.toRadians(270.00))
 
 
 
